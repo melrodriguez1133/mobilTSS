@@ -1,0 +1,43 @@
+ion-content {
+    /* Asegurar que ocupe toda la ventana del navegador */
+    --background: linear-gradient(45deg, #e30113, #003770);
+    height: 100vh;
+  }
+  
+  /* Estilos adicionales para el mensaje de bienvenida */
+  .system-engineering {
+    font-size: 24px; /* Tamaño de fuente para Ingeniería de Sistemas */
+    font-weight: bold; /* Negrita */
+    color: #ffffff; /* Color del texto */
+    text-align: center;
+  }
+  
+  /* Estilos adicionales para el encabezado de bienvenida */
+.welcome-heading {
+    font-size: 48px; /* Tamaño de la fuente del encabezado "Bienvenido" */
+    color: #ffffff; /* Color del texto */
+    text-align: center; /* Centrar el texto */
+    margin-bottom: 20px; /* Espacio inferior */
+    font-weight: bold; /* Negrita */
+  }
+  
+  /* Estilos adicionales para resaltar el nombre de la aplicación */
+  .investment-decisions {
+    font-size: 28px; /* Tamaño de la fuente */
+    font-weight: bold; /* Negrita */
+    color: #ffffff; /* Color del texto resaltado */
+    text-align: center; /* Centrar el texto */
+  }
+  
+  /* Estilos para el botón azul */
+  .blue-button {
+    font-weight: bold; /* Negrita */
+    color: #ffffff; /* Color del texto */
+    text-align: center; /* Centrar el texto */
+    margin-top: 20px;
+    font-size: 24px; /* Tamaño de la fuente del botón */
+    --color: #ffffff; /* Color del texto en el botón */
+    --background: #003770; /* Color de fondo del botón (azul) */
+    --background-hover: #020202; /* Color de fondo del botón al pasar el cursor */
+  }
+  
