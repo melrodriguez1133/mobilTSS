@@ -1,43 +1,84 @@
+/* Estilos generales */
 ion-content {
-    /* Asegurar que ocupe toda la ventana del navegador */
-    --background: linear-gradient(45deg, #e30113, #003770);
-    height: 100vh;
-  }
-  
-  /* Estilos adicionales para el mensaje de bienvenida */
-  .system-engineering {
-    font-size: 24px; /* Tamaño de fuente para Ingeniería de Sistemas */
-    font-weight: bold; /* Negrita */
-    color: #ffffff; /* Color del texto */
-    text-align: center;
-  }
-  
-  /* Estilos adicionales para el encabezado de bienvenida */
+  --background: linear-gradient(45deg, #e30113, #003770);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Estilos para la imagen */
+img {
+  width:100%; /* La imagen ocupará el 50% del ancho de la pantalla */
+  max-width: 100%; /* Hace que la imagen sea responsive */
+  display: block;
+  margin: 0 auto; /* Centra la imagen horizontalmente */
+}
+
+/* Estilos para el mensaje de bienvenida */
+.system-engineering {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* Estilos para el encabezado de bienvenida */
 .welcome-heading {
-    font-size: 48px; /* Tamaño de la fuente del encabezado "Bienvenido" */
-    color: #ffffff; /* Color del texto */
-    text-align: center; /* Centrar el texto */
-    margin-bottom: 20px; /* Espacio inferior */
-    font-weight: bold; /* Negrita */
+  font-size: 48px;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Estilos para resaltar el nombre de la aplicación */
+.investment-decisions {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* Estilos para el botón azul */
+.blue-button {
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 24px;
+  width: 70%; /* Ancho del botón al 70% de cualquier pantalla */
+  max-width: 300px; /* Máximo ancho del botón para evitar que crezca demasiado en pantallas grandes */
+  margin: 0 auto; /* Centra el botón horizontalmente */
+  display: block; /* Para centrar el botón */
+  --color: #ffffff;
+  --background: #003770;
+  --background-hover: #020202;
+}
+
+/* Consultas de medios para hacerlo más responsive */
+@media screen and (max-width: 768px) {
+  /* Modificar estilos para dispositivos con pantalla de hasta 768px de ancho */
+  .welcome-heading {
+    font-size: 36px;
   }
   
-  /* Estilos adicionales para resaltar el nombre de la aplicación */
+  .system-engineering {
+    font-size: 18px;
+  }
+
   .investment-decisions {
-    font-size: 28px; /* Tamaño de la fuente */
-    font-weight: bold; /* Negrita */
-    color: #ffffff; /* Color del texto resaltado */
-    text-align: center; /* Centrar el texto */
+    font-size: 20px;
   }
-  
-  /* Estilos para el botón azul */
+
   .blue-button {
-    font-weight: bold; /* Negrita */
-    color: #ffffff; /* Color del texto */
-    text-align: center; /* Centrar el texto */
-    margin-top: 20px;
-    font-size: 24px; /* Tamaño de la fuente del botón */
-    --color: #ffffff; /* Color del texto en el botón */
-    --background: #003770; /* Color de fondo del botón (azul) */
-    --background-hover: #020202; /* Color de fondo del botón al pasar el cursor */
+    font-size: 20px;
+    width: 80%; /* Cambia el ancho del botón para dispositivos más pequeños */
   }
-  
+
+  img {
+    width:90%; /* Cambia el ancho de la imagen para dispositivos más pequeños */
+  }
+}
