@@ -9,13 +9,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { AyudaComponent } from './ayuda/ayuda.component';
 import { DatosComponent } from './datos/datos.component';
+import { GuiaComponent } from './guia/guia.component';
+import { FormulacionComponent } from './formulacion/formulacion.component';
+import { PlanteamientoComponent } from './planteamiento/planteamiento.component';
 
 @NgModule({
   declarations: [
     AppComponent,
    HomeComponent,
    AyudaComponent,
-   DatosComponent
+   DatosComponent,
+   GuiaComponent,
+   FormulacionComponent,
+   PlanteamientoComponent
   ],
   imports: [
     BrowserModule,
