@@ -10,6 +10,10 @@ import { HomeComponent } from './home/home.component';
 import { AyudaComponent } from './ayuda/ayuda.component';
 import { DatosComponent } from './datos/datos.component';
 
+//material de ionic 
+import { FormsModule } from '@angular/forms';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +24,8 @@ import { DatosComponent } from './datos/datos.component';
   imports: [
     BrowserModule,
      IonicModule.forRoot(),
-      AppRoutingModule
+      AppRoutingModule,
+      FormsModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

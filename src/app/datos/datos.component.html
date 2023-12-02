@@ -1,3 +1,23 @@
-<p>
-  datos works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form action="/submit" method="post">
+    <label for="nombre">Nombre:</label><br>
+    <input type="text" id="nombre" name="nombre"><br>
+    
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br>
+    
+    <label for="mensaje">Mensaje:</label><br>
+    <textarea id="mensaje" name="mensaje"></textarea><br>
+    
+    <input type="submit" value="Enviar">
+  </form>
+</ion-content>
