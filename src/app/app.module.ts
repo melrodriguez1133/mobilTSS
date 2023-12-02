@@ -13,6 +13,10 @@ import { GuiaComponent } from './guia/guia.component';
 import { FormulacionComponent } from './formulacion/formulacion.component';
 import { PlanteamientoComponent } from './planteamiento/planteamiento.component';
 
+//material de ionic 
+import { FormsModule } from '@angular/forms';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +30,8 @@ import { PlanteamientoComponent } from './planteamiento/planteamiento.component'
   imports: [
     BrowserModule,
      IonicModule.forRoot(),
-      AppRoutingModule
+      AppRoutingModule,
+      FormsModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
