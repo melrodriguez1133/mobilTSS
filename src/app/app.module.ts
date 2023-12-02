@@ -12,6 +12,7 @@ import { DatosComponent } from './datos/datos.component';
 import { GuiaComponent } from './guia/guia.component';
 import { FormulacionComponent } from './formulacion/formulacion.component';
 import { PlanteamientoComponent } from './planteamiento/planteamiento.component';
+import { ModalMensajeComponent } from './modal-mensaje/modal-mensaje.component';
 
 //material de ionic 
 import { FormsModule } from '@angular/forms';
@@ -26,7 +27,8 @@ import { ReactiveFormsModule } from '@angular/forms';
    DatosComponent,
    GuiaComponent,
    FormulacionComponent,
-   PlanteamientoComponent
+   PlanteamientoComponent,
+   ModalMensajeComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +36,7 @@ import { ReactiveFormsModule } from '@angular/forms';
       AppRoutingModule,
       FormsModule,
       ReactiveFormsModule,
+      IonicModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

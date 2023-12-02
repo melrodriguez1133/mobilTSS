@@ -1,0 +1,32 @@
+/* modal-mensaje.component.scss */
+
+/* Estilos para el modal */
+ion-modal {
+    --height: 60%;
+    --width: 60%;
+    height: var(--height);
+    width: var(--width);
+    max-height: var(--height);
+    max-width: var(--width);
+    margin: auto;
+    top: 20%;
+    left: 20%;
+    transform: translate(-20%, -20%);
+    background-color: white; /* Color de fondo del modal */
+    border-radius: 10px; /* Borde redondeado del modal */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra del modal */
+  }
+  
+  /* Estilos para el contenido del modal */
+  ion-content {
+    padding: 20px;
+  }
+  
+  /* Estilos para el botón de cerrar */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: red; /* Color del botón de cerrar */
+  }
+  

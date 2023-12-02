@@ -1,19 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
+import { ModalController } from '@ionic/angular';
+import { ModalMensajeComponent } from '../modal-mensaje/modal-mensaje.component';
+
+
+interface CalculatedValues {
+  inversionInicial: {
+    pesimista: number;
+    masProbable: number;
+    optimista: number;
+  };
+  flujoNeto: {
+    pesimista: number;
+    masProbable: number;
+    optimista: number;
+  };
+}
 
 @Component({
   selector: 'app-datos',
   templateUrl: './datos.component.html',
   styleUrls: ['./datos.component.scss'],
 })
+
+
 export class DatosComponent  {
+  
 
   miFormulario: FormGroup;
 
   mostrarTabla: boolean = false;
 
-  constructor(private formBuilder: FormBuilder,private dataService: DataService ) {
+  constructor(private modalController: ModalController,private formBuilder: FormBuilder,private dataService: DataService ) {
     this.miFormulario = this.formBuilder.group({
       inversionInicial: ['', [Validators.required, Validators.min(0)]],
       desviacionInversionInicial: ['', [Validators.required, Validators.min(0)]],
@@ -53,58 +72,76 @@ export class DatosComponent  {
     }
   }
   limpiarFormulario() {
+    this.mostrarTabla = false;
     this.miFormulario.reset(); // Restablece los valores del formulario
   }
 
-  enviarFormulario() {
+  async enviarFormulario() {
     if (this.miFormulario.valid) {
       const datosFormulario = this.miFormulario.value;
       this.dataService.almacenarDatos(datosFormulario); // Almacena los datos
       console.log('Datos enviados:', datosFormulario);
-
+ this. mostrarTablaClick();
       const datosAlmacenados = this.dataService.obtenerDatosAlmacenados(); // Obtiene los datos almacenados
       console.log('Datos almacenados en DataService:', datosAlmacenados);
+
+      const modal = await this.modalController.create({
+        component: ModalMensajeComponent,
+        componentProps: {
+          mensaje: 'Datos correctamente registrados'
+        }
+      });
+
+      await modal.present();
     } else {
       console.log('Por favor, completa correctamente el formulario.');
     }
   }
- /*calcularValores() {
-    this.dataService.obtenerDatos().subscribe(
-      (datos: any) => {
-        // Aquí debes ajustar según la estructura de tus datos
-        const inversionInicial = datos.inversionInicial;
-        const desviacionInversionInicial = datos.desviacionInversionInicial;
-        const flujoNetoInicial = datos.flujoNetoInicial;
-        const desviacionFlujoNeto = datos.desviacionFlujoNeto;
+  calculatedValues: CalculatedValues | null = {
+    inversionInicial: {
+      pesimista: 0,
+      masProbable: 0,
+      optimista: 0,
+    },
+    flujoNeto: {
+      pesimista: 0,
+      masProbable: 0,
+      optimista: 0,
+    },
+  };
+  resultadosCalculados = false;
+  escenariosInversion: any = {};
+  escenariosFlujo: any = {};
+  
+     // Función para simular el cálculo de escenarios
+     calcularValores(){
+      const datos = this.dataService.obtenerDatosAlmacenados();
 
-        // Verificar si hay datos antes de realizar los cálculos
-        if (inversionInicial && desviacionInversionInicial && flujoNetoInicial && desviacionFlujoNeto) {
-          const valoresCalculados = {
-            inversionInicial: {
-              pesimista: inversionInicial + desviacionInversionInicial,
-              masProbable: inversionInicial,
-              optimista: inversionInicial - desviacionInversionInicial
-            },
-            flujoNeto: {
-              pesimista: flujoNetoInicial + desviacionFlujoNeto,
-              masProbable: flujoNetoInicial,
-              optimista: flujoNetoInicial - desviacionFlujoNeto
-            }
-          };
+      // Calcular los escenarios
+      const inversionInicial = datos.inversionInicial;
+      const desviacionInversionInicial = datos.desviacionInversionInicial;
+      const flujoNetoInicial = datos.flujoNetoInicial;
+      const desviacionFlujoNeto = datos.desviacionFlujoNeto;
+  
+      console.log(inversionInicial,desviacionInversionInicial,flujoNetoInicial,desviacionFlujoNeto );
 
-          // Hacer lo que necesites con los valores calculados
-          console.log('Valores calculados:', valoresCalculados);
-        } else {
-          console.error('Faltan datos para calcular valores.');
+      this.calculatedValues = {
+        inversionInicial: {
+          pesimista: inversionInicial + desviacionInversionInicial,
+          masProbable: inversionInicial,
+          optimista: inversionInicial - desviacionInversionInicial,
+        },
+        flujoNeto: {
+          pesimista: flujoNetoInicial + desviacionFlujoNeto,
+          masProbable: flujoNetoInicial,
+          optimista: flujoNetoInicial - desviacionFlujoNeto,
         }
-      },
-      error => {
-        console.error('Error al obtener los datos:', error);
-      }
-    );
-  }*/
+      };
+    }
+
   
   mostrarTablaClick() {
+    this.calcularValores(); // Calcular valores
     this.mostrarTabla = true; // Cambiar el estado para mostrar la tabla
   }
 }
