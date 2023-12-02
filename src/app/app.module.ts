@@ -15,6 +15,7 @@ import { PlanteamientoComponent } from './planteamiento/planteamiento.component'
 
 //material de ionic 
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
      IonicModule.forRoot(),
       AppRoutingModule,
-      FormsModule
+      FormsModule,
+      ReactiveFormsModule,
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
