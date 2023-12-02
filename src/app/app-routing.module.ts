@@ -3,6 +3,9 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AyudaComponent } from './ayuda/ayuda.component';
 import { DatosComponent } from './datos/datos.component';
+import { GuiaComponent } from './guia/guia.component';
+import { PlanteamientoComponent } from './planteamiento/planteamiento.component';
+import { FormulacionComponent } from './formulacion/formulacion.component';
 
 const routes: Routes = [
   {
@@ -21,6 +24,18 @@ const routes: Routes = [
   {
     path: 'ayuda',
     component: AyudaComponent 
+  },
+  {
+    path: 'guia',
+    component: GuiaComponent 
+  },
+  {
+    path: 'info',
+    component: PlanteamientoComponent 
+  },
+  {
+    path: 'simulacion',
+    component: FormulacionComponent 
   },
   {
     path: '**', 
