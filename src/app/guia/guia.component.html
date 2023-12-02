@@ -1,47 +1,70 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>
-        Home
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h1 class="header-title">Pasos para el uso de la aplicación</h1>
+
   
-  <ion-content>
-    <h1 position="floating" style="color: rgb(255, 255, 255);">Pasos para el uso de la aplicacion</h1>
-    <br>
-    <h1 position="floating" style="color: white;">Paso 1:</h1>
-    <br>
-    <p>Entrar al apartado de Datos</p>
-    <img src="" alt="Descripción de la imagen">
-    <br>
-    <p>En esta pestaña debes ingresar los datos con los que quieras que la aplicacion simule inversion</p>
-    <br>
-    <img src="" alt="Descripción de la imagen">
-    <p>En el cajon de "μ" de la inversion inicial, debes ingresar cuanto quieres que sea tu inversion inicial</p>
-    <p>En el cajon de "σ" de la inversion inicial, debes ingresar la desviación estandar que tendra la inversión inicial</p>
-    <p>En el cajon de "μ" del flujo neto, debes ingresar cuanto quieres que sea tu inversion inicial</p>
-    <p>En el cajon de "σ" del flujo neto, debes ingresar la desviación estandar que tendra la inversión inicial</p>
-    <p>Esto para calcular el valor pesimista, valor mas probable y valor optimista, que nos servira para la simulacion.</p>
-    <p>En el cajon "TREMA", debes ingresar el porcentaje de retorno minimo que quieres que te retorne para que el proyecto sea aceptado o rechazado</p>
-    <p>Presionar el boton "Insertar" para que genere el cuadro de valores pesimistas, optimista y mas probable</p>
+    <ion-card-header>
+      <h1 class="step-title">Paso 1: Ingreso de Datos</h1>
+    </ion-card-header>
+    <ion-card-content>
+      <h2 class="sub-title"><strong>1. Acceder al Apartado de Datos:</strong></h2>
+      <p>Navegar a la sección de "Datos" en la aplicación.</p>
+
+      <h2 class="sub-title"><strong>2. Ingresar Datos de Simulación:</strong></h2>
+      <p>En la pestaña de datos, proporcionar los parámetros necesarios para la simulación:</p>
+      <ul>
+        <li>Ingresar el valor de la media (μ) y desviación estándar (σ) de la inversión inicial.</li>
+        <li>Ingresar el valor de la media (μ) y desviación estándar (σ) del flujo neto.</li>
+        <li>Especificar el porcentaje de retorno mínimo aceptable (TREMA).</li>
+        <li>Presionar el botón "Insertar" para generar el cuadro con valores pesimistas, optimistas y más probables.</li>
+      </ul>
+    </ion-card-content>
+  
+
+  
+    <ion-card-header>
+      <h1 class="step-title">Paso 2: Simulación de Datos</h1>
+    </ion-card-header>
+    <ion-card-content>
+      <h2 class="sub-title"><strong>1. Acceder al Apartado de Simulación:</strong></h2>
+      <p>Ir a la sección de "Simulación" en la aplicación.</p>
+
+      <h2 class="sub-title"><strong>2. Configurar Parámetros de Simulación:</strong></h2>
+      <p>Ingresar la duración en años para simular inversiones y retornos.</p>
+
+      <h2 class="sub-title"><strong>3. Iniciar Simulación:</strong></h2>
+      <p>Presionar el botón "Simular datos" para ejecutar la simulación.</p>
+
+      <h2 class="sub-title"><strong>4. Revisar Resultados:</strong></h2>
+      <p>Observar la conclusión de la simulación para determinar la recomendación de inversión.</p>
+      <p>Examinar la tabla de resultados de la simulación y los resultados finales para tomar decisiones informadas.</p>
+
+      <h2 class="sub-title"><strong>5. Exportar Resultados (Opcional):</strong></h2>
+      <p>Si se desea, presionar el botón "Exportar" para descargar los resultados en un archivo PDF.</p>
+    </ion-card-content>
+  
+
+  <h1 class="header-title">Comenzar un Nuevo Proyecto</h1>
+
+  
+    <ion-card-content>
+      <h2 class="sub-title"><strong>1. Regresar a la Pestaña de Llenado de Datos:</strong></h2>
+      <p>Si se desea iniciar una nueva simulación con datos diferentes, regresar a la pestaña de "Datos".</p>
+
+      <h2 class="sub-title"><strong>2. Limpiar Datos Anteriores:</strong></h2>
+      <p>Presionar el botón "Limpiar" para borrar todos los datos ingresados anteriormente.</p>
+
+      <h2 class="sub-title"><strong>3. Repetir Pasos 1 y 2:</strong></h2>
+      <p>Repetir los pasos 1 y 2 para ingresar nuevos datos y ejecutar una nueva simulación.</p>
+    </ion-card-content>
+ 
+</ion-content>
 
 
-    <br>
-    <h1>Paso 2:</h1>
-    <br>
-    <p>Entrar al apartado de simulacion</p>
-    <img src="" alt="Descripción de la imagen">
-    <br>
-    <p>En esta pestaña debes ingresar el tiempo que quiere que simulemos </p>
-    <br>
-    <img src="" alt="Descripción de la imagen">
-    <p>En el cajon de "μ" de la inversion inicial, debes ingresar cuanto quieres que sea tu inversion inicial</p>
-    <p>En el cajon de "σ" de la inversion inicial, debes ingresar la desviación estandar que tendra la inversión inicial</p>
-    <p>En el cajon de "μ" del flujo neto, debes ingresar cuanto quieres que sea tu inversion inicial</p>
-    <p>En el cajon de "σ" del flujo neto, debes ingresar la desviación estandar que tendra la inversión inicial</p>
-    <p>Esto para calcular el valor pesimista, valor mas probable y valor optimista, que nos servira para la simulacion.</p>
-    <p>En el cajon "TREMA", debes ingresar el porcentaje de retorno minimo que quieres que te retorne para que el proyecto sea aceptado o rechazado</p>
-    <p>Presionar el boton "Insertar" para que genere el cuadro de valores pesimistas, optimista y mas probable</p>
-    <h2> </h2>
-
-    </ion-content>
