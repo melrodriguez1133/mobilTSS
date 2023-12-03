@@ -24,16 +24,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent,
+   AppComponent,
    HomeComponent,
    AyudaComponent,
    DatosComponent,
    GuiaComponent,
-   FormulacionComponent,
    PlanteamientoComponent,
    ModalMensajeComponent,
    ConceptosBasicosComponent,
-   SoporteTecnicoComponent
+   SoporteTecnicoComponent,
+   FormulacionComponent,
   ],
   imports: [
     BrowserModule,

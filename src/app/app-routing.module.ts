@@ -6,6 +6,9 @@ import { DatosComponent } from './datos/datos.component';
 import { GuiaComponent } from './guia/guia.component';
 import { PlanteamientoComponent } from './planteamiento/planteamiento.component';
 import { FormulacionComponent } from './formulacion/formulacion.component';
+import { ModalMensajeComponent } from './modal-mensaje/modal-mensaje.component';
+import { ConceptosBasicosComponent } from './conceptos-basicos/conceptos-basicos.component';
+import { SoporteTecnicoComponent } from './soporte-tecnico/soporte-tecnico.component';
 
 const routes: Routes = [
   {
@@ -36,6 +39,12 @@ const routes: Routes = [
   {
     path: 'simulacion',
     component: FormulacionComponent 
+  },
+  { path: 'conceptos-basicos',
+   component: ConceptosBasicosComponent 
+  },
+  { path: 'soporte-tecnico',
+   component: SoporteTecnicoComponent 
   },
   {
     path: '**', 
