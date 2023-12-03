@@ -4,16 +4,20 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
-  private inversionInicial: number = 0;
-  private desviacionInversionInicial: number = 0;
-  private flujoNetoInicial: number = 0;
-  private desviacionFlujoNeto: number = 0;
-  private tasaTREMA: number = 0;
+  export class DataService {
+    private inversionInicial: number = 0;
+    private desviacionInversionInicial: number = 0;
+    private flujoNetoInicial: number = 0;
+    private desviacionFlujoNeto: number = 0;
+    private tasaTREMA: number = 0;
+    private datosAlmacenados: any;
+  
+    constructor() { }
 
-  constructor() { }
-
-  // Métodos para establecer 
+   // Método para almacenar los datos
+   almacenarDatos(datos: any): void {
+    this.datosAlmacenados = datos;
+  }
   setIIu(value: number) {
     this.inversionInicial = value;
   }
@@ -34,7 +38,10 @@ export class DataService {
     this.tasaTREMA = value;
   }
 
-  // Métodos para obtener 
+  // Método para obtener los datos almacenados
+  obtenerDatosAlmacenados(): any {
+    return this.datosAlmacenados;
+  }
   obtenerIIu(): number {
     return this.inversionInicial;
   }
