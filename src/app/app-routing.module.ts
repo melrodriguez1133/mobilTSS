@@ -5,10 +5,10 @@ import { AyudaComponent } from './ayuda/ayuda.component';
 import { DatosComponent } from './datos/datos.component';
 import { GuiaComponent } from './guia/guia.component';
 import { PlanteamientoComponent } from './planteamiento/planteamiento.component';
-import { FormulacionComponent } from './formulacion/formulacion.component';
 import { ModalMensajeComponent } from './modal-mensaje/modal-mensaje.component';
 import { ConceptosBasicosComponent } from './conceptos-basicos/conceptos-basicos.component';
 import { SoporteTecnicoComponent } from './soporte-tecnico/soporte-tecnico.component';
+import { SimulacionComponent } from './simulacion/simulacion.component';
 
 const routes: Routes = [
   {
@@ -36,15 +36,15 @@ const routes: Routes = [
     path: 'info',
     component: PlanteamientoComponent 
   },
-  {
-    path: 'simulacion',
-    component: FormulacionComponent 
-  },
   { path: 'conceptos-basicos',
    component: ConceptosBasicosComponent 
   },
   { path: 'soporte-tecnico',
    component: SoporteTecnicoComponent 
+  },
+  {
+    path: 'simulacion',
+    component: SimulacionComponent 
   },
   {
     path: '**', 
