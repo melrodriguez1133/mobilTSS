@@ -42,11 +42,16 @@ form {
   }
   /* Estilos para centrar el h2 */
 h2 {
-    text-align: center; /* Centra el texto horizontalmente */
-    margin-top: 20px; /* Espacio superior */
-    margin-bottom: 20px; /* Espacio inferior */
-    /* Otros estilos que desees agregar */
-  }
+  text-align: center; /* Centra el texto horizontalmente */
+  margin-top: 20px; /* Espacio superior */
+  margin-bottom: 20px; /* Espacio inferior */
+  /* Otros estilos que desees agregar */
+  font-family: Arial, sans-serif; /* Cambia la fuente */
+  font-size: 24px; /* Tamaño del texto */
+  color: white; /* Color del texto */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+  /* Agregar más estilos según tus preferencias */
+}
   
   
   /*tabla*/
@@ -75,6 +80,7 @@ table {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #003770;
+    color: white; /* Cambia el color del texto a blanco */
   }
   
   /* Estilos para las celdas de la primera columna */
