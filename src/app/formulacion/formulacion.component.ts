@@ -15,7 +15,7 @@ interface DatosTabla {
   templateUrl: 'formulacion.page.html',
   styleUrls: ['formulacion.page.scss']
 })
-export class Tab3Page implements OnInit {
+export class FormulacionComponent implements OnInit {
   tablaData: DatosTabla[] = [];
   cantidadAnos!: number ;
   TIRB: boolean = false;
