@@ -1,3 +1,78 @@
-<p>
-  conceptos-basicos works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h1 class="header-title">Conceptos basicos</h1>
+
+  
+    <ion-card-header>
+      <h1 class="step-title"><strong>Inversión Inicial y Flujo Neto:</strong></h1>
+    </ion-card-header>
+    <ion-card-content>
+      <ul>
+        <li>La inversión inicial es la cantidad de dinero necesaria para iniciar el proyecto, y en este caso, se modela como una distribución normal con una media de $100,000 y una desviación estándar de $5,000.</li>
+        <li>El flujo neto del período t es la diferencia entre los ingresos y los costos en un año dado, modelado como una distribución normal con una media de $30,000 y una desviación estándar de $3,000.</li>
+      </ul>
+    </ion-card-content>
+
+    <ion-card-header>
+      <h1 class="step-title"><strong>Tasa de Rendimiento Mínimo Aceptable (TREMA):</strong></h1>
+    </ion-card-header>
+    <ion-card-content>
+      <ul>
+        <li>Es la tasa de rendimiento mínima que la empresa considera aceptable para emprender el proyecto. En este caso, la TREMA es del 30%.</li>
+      </ul>
+    </ion-card-content>
+
+    <ion-card-header>
+      <h1 class="step-title"><strong>Simulación de Inversiones y Flujos Netos:</strong></h1>
+    </ion-card-header>
+    <ion-card-content>
+      <ul>
+        <li>Se utilizan distribuciones triangulares para simular los valores pesimistas, más probables y optimistas de las inversiones iniciales y los flujos netos para cada uno de los 5 años del horizonte de planificación.</li>
+      </ul>
+    </ion-card-content>
+
+    <ion-card-header>
+      <h1 class="step-title"><strong>Flujo de Efectivo Después de Impuestos:</strong></h1>
+    </ion-card-header>
+    <ion-card-content>
+      <ul>
+        <li>Se calcula determinando el impuesto sobre la renta y restando este impuesto del flujo neto. Se utiliza una tabla con la distribución triangular para estos cálculos.</li>
+      </ul>
+    </ion-card-content>
+
+    <ion-card-header>
+      <h1 class="step-title"><strong>Valor de Rescate (VR):</strong></h1>
+    </ion-card-header>
+    <ion-card-content>
+      <ul>
+        <li>Se determina el valor de rescate al final del horizonte de planificación. En este caso, se utiliza una fórmula que involucra el valor simulado de la inversión inicial (AF) y una tasa de impuesto (T).</li>
+      </ul>
+    </ion-card-content>
+
+    <ion-card-header>
+      <h1 class="step-title"><strong>Cálculo de la Tasa Interna de Rendimiento (TIR):</strong></h1>
+    </ion-card-header>
+    <ion-card-content>
+      <ul>
+        <li>Se calcula la TIR para los valores simulados. La TIR es la tasa de descuento que hace que el valor presente neto (VPN) de los flujos de efectivo sea igual a cero.</li>
+      </ul>
+    </ion-card-content>
+
+    <ion-card-header>
+      <h1 class="step-title"><strong>Conclusión:</strong></h1>
+    </ion-card-header>
+    <ion-card-content>
+      <ul>
+        <li>Se concluye comparando la TIR calculada con la TREMA. Si la probabilidad de que la TIR sea menor que la TREMA es menor al 10%, se acepta el proyecto.</li>
+      </ul>
+    </ion-card-content>
+    
+ 
+</ion-content>

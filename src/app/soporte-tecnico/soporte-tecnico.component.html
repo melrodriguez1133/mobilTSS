@@ -1,3 +1,37 @@
-<p>
-  soporte-tecnico works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Soporte Técnico</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+        <h1>Soporte Tecnico</h1>
+      <img src="../../assets/icon/Soporte-Tecnico.png" alt="Soporte Técnico Imagen" class="imagen-soporte">
+    <ion-card>
+    <ion-card-content>
+      <form [formGroup]="soporteForm" (ngSubmit)="enviarSoporte()">
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input formControlName="nombre" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Correo Electrónico</ion-label>
+          <ion-input formControlName="correo" type="email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Teléfono</ion-label>
+          <ion-input formControlName="telefono" type="tel"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Descripción del Problema</ion-label>
+          <ion-textarea formControlName="descripcionProblema" rows="6"></ion-textarea>
+        </ion-item>
+
+        <ion-button type="submit" expand="full" class="ion-margin-top">Enviar</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

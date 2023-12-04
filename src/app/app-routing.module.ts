@@ -47,6 +47,10 @@ const routes: Routes = [
     component: SimulacionComponent 
   },
   {
+    path: 'guia-escrita',
+    component: GuiaComponent 
+  },
+  {
     path: '**', 
     redirectTo: '/home'
   }

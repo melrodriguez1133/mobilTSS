@@ -19,6 +19,8 @@ ion-modal {
   
   /* Estilos para el contenido del modal */
   ion-content {
+    --background: linear-gradient(45deg, #e30113, #003770);
+    text-align: center;
     padding: 20px;
   }
   
@@ -29,4 +31,23 @@ ion-modal {
     right: 10px;
     color: red; /* Color del botón de cerrar */
   }
+  ion-item {
+    //margin-bottom: 15px;
+    --background: transparent;
+    --color: #fff;
+    --border-color: #fff;
+    //--border-radius: 10px;
+}
+  ion-item::part(native) {
+      //background-color: #fff;
+      border-color: #fff;
+      color: #fff;
+      //border-radius: 10px;
+}
+.list-ios{
+  background: transparent;
+}
+.imagen-ayuda{
+  width: 100px;
+}
   

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
+import * as html2pdf from 'html2pdf.js';
 
 interface DatosTabla {
   anos: number;
@@ -159,4 +160,41 @@ calcularTIR(): void {
   this.Trema =this.tasaTREMA; // Obtener el valor de Trema desde el servicio
   this.TIRB = this.TIR >= this.Trema; // Comparar con el valor de Trema
 }
+exportToPDF() {
+  const content = document.getElementById('pdfContent');
+
+  if (!content) {
+    console.error('Error: No se pudo encontrar el elemento con id "pdfContent".');
+    return;
+  }
+
+  const options = {
+    margin: 10,
+    filename: 'tabla_distribucion_triangular.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+  };
+
+  html2pdf().from(content).set(options).outputPdf().then((pdf: any) => {
+    console.log('Generación del PDF completada.');
+
+    // Crea un Blob y URL para el PDF generado
+    const blob = new Blob([pdf], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+
+    // Crea un enlace y simula el clic para descargar el archivo
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = options.filename;
+    link.click();
+
+    console.log('Descarga completada.');
+  }).catch((error: any) => {
+    console.error('Error al generar y descargar el PDF:', error);
+  });
+
+  console.log('Generando PDF...');
+}
+
 }
