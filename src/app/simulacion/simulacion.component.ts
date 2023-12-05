@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import * as html2pdf from 'html2pdf.js';
+import { Finance }from 'financejs';
+
+
 
 interface DatosTabla {
   anos: number;
@@ -29,6 +32,13 @@ export class SimulacionComponent implements OnInit {
   Trema:number=0;// Inicializa Trema en 0
 
   constructor(private dataService: DataService) { } // Inyecta el DataService en el constructor
+
+  // Función auxiliar para calcular la TIR
+private calcularTIRParaFlujos(flujos: number[]): number {
+  const finance = new Finance();
+  return parseFloat(finance.IRR.apply(null, [0, ...flujos]).toFixed(2));
+}
+
 
   ngOnInit(): void {
     this.obtenerDatos();
@@ -160,13 +170,35 @@ calcularFETTotal(): number {
   return Number(sumaFET.toFixed(2)); // Devuelve el resultado redondeado a 2 decimales
 }
 
-
 calcularTIR(): void {
+  const flujosFET = this.tablaData.map(item => item.fet);
+
+  // Verifica que haya al menos un valor positivo y uno negativo
+  if (flujosFET.some(valor => valor > 0) && flujosFET.some(valor => valor < 0)) {
+    // Agrega un flujo de caja inicial de 0 al array
+    const flujosParaTIR = [0, ...flujosFET];
+
+    // Calcula la TIR para toda la columna 'fet' utilizando la función auxiliar
+    this.TIR = this.calcularTIRParaFlujos(flujosParaTIR);
+
+    this.Trema = this.tasaTREMA; // Obtener el valor de Trema desde el servicio
+    this.TIRB = this.TIR >= this.Trema; // Comparar con el valor de Trema
+  } else {
+    // Manejar el caso en el que no haya suficientes valores positivos o negativos
+    console.error('ERROR: IRR requiere al menos un valor positivo y uno negativo en la columna "fet".');
+    // Puedes agregar lógica adicional aquí según tus necesidades
+  }
+}
+
+
+
+
+/*calcularTIR(): void {
   const flujosFET = this.tablaData.map(item => item.fet);
   this.TIR = parseFloat((Math.random() * (50 - 1) + 1).toFixed(2));
   this.Trema =this.tasaTREMA; // Obtener el valor de Trema desde el servicio
   this.TIRB = this.TIR >= this.Trema; // Comparar con el valor de Trema
-}
+}*/
 exportToPDF() {
   const content = document.getElementById('pdfContent');
 
