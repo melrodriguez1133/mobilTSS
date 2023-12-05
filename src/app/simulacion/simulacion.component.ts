@@ -65,6 +65,12 @@ export class SimulacionComponent implements OnInit {
         fet: 0,
         tasaImpuestos: parseFloat((Math.random() * (0.15 - 0.13) + 0.13).toFixed(2))
       };
+      this.calcularInversionInicial();
+      this.calcularFlujosNetos();
+      this.calcularFetFromData();
+      this.calcularValorRescateTotal();
+      this.calcularFETTotal();
+      this.calcularTIR();
       this.tablaData.push(data);
     }
 }
@@ -142,7 +148,7 @@ calcularValorRescateTotal(): number {
   this.tablaData.forEach(item => {
     sumaVRT += 0.2 * item.inversionInicial * (1 - item.tasaImpuestos);
   });
-  return sumaVRT;
+  return Number(sumaVRT.toFixed(2)); // Devuelve el resultado redondeado a 2 decimales
 }
 
 calcularFETTotal(): number {
@@ -150,8 +156,9 @@ calcularFETTotal(): number {
   this.tablaData.forEach(item => {
     sumaFET += item.fet;
   });
-  return sumaFET;
+  return Number(sumaFET.toFixed(2)); // Devuelve el resultado redondeado a 2 decimales
 }
+
 
 calcularTIR(): void {
   const flujosFET = this.tablaData.map(item => item.fet);
