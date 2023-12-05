@@ -1,11 +1,11 @@
 <ion-header>
-  <ion-header>
-    <ion-toolbar class="custom-toolbar">
-      <ion-title>
-        Tabla con Distribución Triangular
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar class="custom-toolbar">
+    <ion-title>
+      Tabla con Distribución Triangular
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
 
 <ion-content>
   <br>
@@ -22,7 +22,7 @@
   <br>
 
   <!-- Tabla adicional para Valor de Rescate Total, FET Total y TIR -->
-  <table>
+  <table id="pdfContent">
     <thead>
       <tr>
         <th>Valor de Rescate Total</th>
@@ -45,7 +45,7 @@
   </table>
 
   <!-- Tabla con datos dinámicos -->
-  <div class="table-container">
+  <div class="table-container" >
   <table class="tableprinc">
     <thead>
       <tr>
@@ -68,4 +68,5 @@
     </tbody>
   </table>
 </div>
+<ion-button expand="block" class="blue-button" (click)="exportToPDF()">Exportar a PDF</ion-button>
 </ion-content>
