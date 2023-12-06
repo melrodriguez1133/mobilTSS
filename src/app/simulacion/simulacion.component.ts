@@ -90,7 +90,7 @@ export class SimulacionComponent implements OnInit {
       this.calcularFetFromData();
       this.calcularValorRescateTotal();
       this.calcularFETTotal();
-      this.calcularTIR();
+      this.calcularTir();
       this.tablaData.push(data);
     }
 }
@@ -201,12 +201,78 @@ calcularFETTotal(): number {
 
 
 
+// Función para calcular la TIR en el rango del 1 al 100
+calculateTIR(flujosFET: number[]): number {
+  const epsilon = 0.00001; // Valor de precisión
+  let guess = 0.1; // Valor inicial de la tasa de descuento (TIR)
 
-calcularTIR(): void {
-  const flujosFET = this.tablaData.map(item => item.fet);
-  this.TIR = parseFloat((Math.random() * (50 - 1) + 1).toFixed(2));
-  this.Trema =this.tasaTREMA; // Obtener el valor de Trema desde el servicio
-  this.TIRB = this.TIR >= this.Trema; // Comparar con el valor de Trema
+  const NPV = (guess: number, flujosFET: number[]): number => {
+    return flujosFET.reduce((acc, cashFlow, index) => {
+      return acc + cashFlow / Math.pow((1 + guess), index + 1);
+    }, 0);
+  };
+
+  const NPVDerivative = (guess: number, flujosFET: number[]): number => {
+    return flujosFET.reduce((acc, cashFlow, index) => {
+      return acc - (index + 1) * cashFlow / Math.pow((1 + guess), index + 2);
+    }, 0);
+  };
+
+  let NPVGuess = NPV(guess, flujosFET);
+  let NPVDerivativeGuess = NPVDerivative(guess, flujosFET);
+
+  while (Math.abs(NPVGuess) > epsilon) {
+    guess = guess - NPVGuess / NPVDerivativeGuess;
+    NPVGuess = NPV(guess, flujosFET);
+    NPVDerivativeGuess = NPVDerivative(guess, flujosFET);
+  }
+
+  // Ajustar el valor al rango del 1 al 100 si está fuera de ese intervalo
+  const calculatedTIR = guess * 100;
+  if (calculatedTIR < 1) {
+    return 1;
+  } else if (calculatedTIR > 100) {
+    return 100;
+  } else {
+    return calculatedTIR;
+  }
+}
+
+
+// Función para calcular la media de las TIRs
+calcularMediaTIR(flujosData: number[][]): number {
+  const TIRs: number[] = [];
+  
+  // Calcular TIR para cada conjunto de flujos de efectivo
+  for (const flujosFET of flujosData) {
+    const TIR = this.calculateTIR(flujosFET);
+    TIRs.push(TIR);
+  }
+
+  // Calcular la media de las TIRs obtenidas
+  const totalTIRs = TIRs.reduce((acc, val) => acc + val, 0);
+  const mediaTIR = totalTIRs / TIRs.length;
+
+  return mediaTIR;
+}
+// Función para realizar las iteraciones y guardar los valores de TIR
+obtenerTIRs(flujosFET: number[], cantidadIteraciones: number): number[] {
+  const arrayTIRs: number[] = [];
+
+  for (let i = 0; i < cantidadIteraciones; i++) {
+    const TIR = this.calculateTIR(flujosFET);
+    arrayTIRs.push(TIR);
+  }
+
+  return arrayTIRs;
+}
+
+calcularTir():void{
+// Llamada a la función para calcular la TIR
+const flujosFET = this.tablaData.map(item => item.fet);
+const TIRCalculada = this.calculateTIR(flujosFET);
+
+console.log('La TIR calculada para los flujos de efectivo es:', TIRCalculada);
 }
 
 /*exportToPDF() {

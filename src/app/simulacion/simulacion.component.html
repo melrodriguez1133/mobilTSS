@@ -10,6 +10,7 @@
 <ion-content>
   <br>
 
+
   <!-- Campo para ingresar la cantidad de años -->
   <ion-item class="custom-item" style="max-width: 90%; margin: 0 auto;">
     <ion-label position="floating" style="color: black;">Ingresar cantidad de años:</ion-label>
@@ -21,6 +22,10 @@
 
   <br>
   <!-- Tabla adicional para Valor de Rescate Total, FET Total y TIR -->
+
+  <div *ngIf="TIR !== 0">
+    <p>Tasa Interna de Retorno (TIR): {{ TIR }}%</p>
+  </div>
   <table #table1>
     <thead>
       <tr>
