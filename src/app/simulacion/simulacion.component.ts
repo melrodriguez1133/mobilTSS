@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { DataService } from '../data.service';
-import * as html2pdf from 'html2pdf.js';
-import { Finance }from 'financejs';
+//import * as html2pdf from 'html2pdf.js';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+import { TDocumentDefinitions } from 'pdfmake/interfaces';
+
+//import { Finance }from 'financejs';
 
 
 
@@ -30,15 +35,19 @@ export class SimulacionComponent implements OnInit {
   TIRB: boolean = false;
   TIR: number = 0; // Inicializa TIR en 0
   Trema:number=0;// Inicializa Trema en 0
+  // Referencia a los elementos HTML que deseas incluir en el PDF
+  @ViewChild('pdfContent') pdfContent!: ElementRef<any>;
+  @ViewChild('table1') table1!: ElementRef<any>;
+  @ViewChild('table2') table2!: ElementRef<any>;
 
   constructor(private dataService: DataService) { } // Inyecta el DataService en el constructor
 
   // Función auxiliar para calcular la TIR
-private calcularTIRParaFlujos(flujos: number[]): number {
+/*private calcularTIRParaFlujos(flujos: number[]): number {
   const finance = new Finance();
   return parseFloat(finance.IRR.apply(null, [0, ...flujos]).toFixed(2));
-}
-
+}*/
+  
 
   ngOnInit(): void {
     this.obtenerDatos();
@@ -170,7 +179,7 @@ calcularFETTotal(): number {
   return Number(sumaFET.toFixed(2)); // Devuelve el resultado redondeado a 2 decimales
 }
 
-calcularTIR(): void {
+/*calcularTIR(): void {
   const flujosFET = this.tablaData.map(item => item.fet);
 
   // Verifica que haya al menos un valor positivo y uno negativo
@@ -188,18 +197,19 @@ calcularTIR(): void {
     console.error('ERROR: IRR requiere al menos un valor positivo y uno negativo en la columna "fet".');
     // Puedes agregar lógica adicional aquí según tus necesidades
   }
-}
+}*/
 
 
 
 
-/*calcularTIR(): void {
+calcularTIR(): void {
   const flujosFET = this.tablaData.map(item => item.fet);
   this.TIR = parseFloat((Math.random() * (50 - 1) + 1).toFixed(2));
   this.Trema =this.tasaTREMA; // Obtener el valor de Trema desde el servicio
   this.TIRB = this.TIR >= this.Trema; // Comparar con el valor de Trema
-}*/
-exportToPDF() {
+}
+
+/*exportToPDF() {
   const content = document.getElementById('pdfContent');
 
   if (!content) {
@@ -217,6 +227,7 @@ exportToPDF() {
 
   html2pdf().from(content).set(options).outputPdf().then((pdf: any) => {
     console.log('Generación del PDF completada.');
+    console.log(content);
 
     // Crea un Blob y URL para el PDF generado
     const blob = new Blob([pdf], { type: 'application/pdf' });
@@ -234,6 +245,51 @@ exportToPDF() {
   });
 
   console.log('Generando PDF...');
+}*/
+
+exportToPDF() {
+  // Configuración de las fuentes para pdfmake
+  (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+
+
+  const content = [];  
+
+
+  
+  // Tabla 1
+  content.push({ table: { body: this.parseTable(this.table1.nativeElement) }, layout: 'headerLineOnly', margin: [0, 0, 0, 10] });
+
+  // Tabla 2
+  content.push({ table: { body: this.parseTable(this.table2.nativeElement) }, layout: 'headerLineOnly', margin: [0, 0, 0, 10] });
+
+  // Contenido de texto
+  content.push({ text: this.pdfContent.nativeElement.innerText, fontSize: 12, margin: [0, 0, 0, 10] });
+
+ // Configuración del documento PDF
+const documentDefinition: TDocumentDefinitions = {
+  content: [
+    { table: { body: this.parseTable(this.table1.nativeElement) }, layout: 'headerLineOnly', margin: [0, 0, 0, 10] },
+    { table: { body: this.parseTable(this.table2.nativeElement) }, layout: 'headerLineOnly', margin: [0, 0, 0, 10] },
+    { text: this.pdfContent.nativeElement.innerText, fontSize: 12, margin: [0, 0, 0, 10] }
+  ]
+};
+
+
+  // Descargar el PDF
+  pdfMake.createPdf(documentDefinition).download('tabla_distribucion_triangular.pdf');
+}
+
+// Función para convertir una tabla HTML a una estructura reconocida por pdfmake
+parseTable(table: HTMLTableElement) {
+  const body = [];
+  for (let i = 0; i < table.rows.length; i++) {
+    const row = [];
+    for (let j = 0; j < table.rows[i].cells.length; j++) {
+      row.push(table.rows[i].cells[j].innerText);
+    }
+    body.push(row);
+  }
+  return body;
 }
 
 }
