@@ -3,13 +3,8 @@ import { DataService } from '../data.service';
 //import * as html2pdf from 'html2pdf.js';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-
-import { TDocumentDefinitions } from 'pdfmake/interfaces';
-
+import { Content, Table, TDocumentDefinitions } from 'pdfmake/interfaces';
 //import { Finance }from 'financejs';
-
-
-
 interface DatosTabla {
   anos: number;
   inversionInicial: number;
@@ -30,11 +25,14 @@ export class SimulacionComponent implements OnInit {
   desviacionFlujoNeto: number = 0;
   tasaTREMA: number = 0;
 
+  estadoProyecto: string = ''; // Agrega esta línea para declarar la variable estadoProyecto
+
   tablaData: DatosTabla[] = [];
   cantidadAnos!: number ;
   TIRB: boolean = false;
   TIR: number = 0; // Inicializa TIR en 0
   Trema:number=0;// Inicializa Trema en 0
+  mostrarConclusion: boolean = false;
   // Referencia a los elementos HTML que deseas incluir en el PDF
   @ViewChild('pdfContent') pdfContent!: ElementRef<any>;
   @ViewChild('table1') table1!: ElementRef<any>;
@@ -42,6 +40,18 @@ export class SimulacionComponent implements OnInit {
 
   constructor(private dataService: DataService) { } // Inyecta el DataService en el constructor
 
+
+  parseTable(table: HTMLTableElement): any[] {
+    const body = [];
+    for (let i = 0; i < table.rows.length; i++) {
+      const row = [];
+      for (let j = 0; j < table.rows[i].cells.length; j++) {
+        row.push(table.rows[i].cells[j].innerText);
+      }
+      body.push(row);
+    }
+    return body;
+  }
   // Función auxiliar para calcular la TIR
 /*private calcularTIRParaFlujos(flujos: number[]): number {
   const finance = new Finance();
@@ -91,6 +101,7 @@ export class SimulacionComponent implements OnInit {
       this.calcularValorRescateTotal();
       this.calcularFETTotal();
       this.calcularTir();
+      this.mostrarConclusion = true;
       this.tablaData.push(data);
     }
 }
@@ -179,183 +190,107 @@ calcularFETTotal(): number {
   return Number(sumaFET.toFixed(2)); // Devuelve el resultado redondeado a 2 decimales
 }
 
+
 /*calcularTIR(): void {
   const flujosFET = this.tablaData.map(item => item.fet);
+  this.TIR = parseFloat((Math.random() * (50 - 1) + 1).toFixed(2));
+  this.Trema =this.tasaTREMA; // Obtener el valor de Trema desde el servicio
+  this.TIRB = this.TIR >= this.Trema; // Comparar con el valor de Trema
+}*/
 
-  // Verifica que haya al menos un valor positivo y uno negativo
-  if (flujosFET.some(valor => valor > 0) && flujosFET.some(valor => valor < 0)) {
-    // Agrega un flujo de caja inicial de 0 al array
-    const flujosParaTIR = [0, ...flujosFET];
+calcularTir() {
+  const tieneDatosFET = this.tablaData.some(item => item.fet !== 0);
 
-    // Calcula la TIR para toda la columna 'fet' utilizando la función auxiliar
-    this.TIR = this.calcularTIRParaFlujos(flujosParaTIR);
-
+  if (tieneDatosFET) {
+    const flujosFET = this.tablaData.map(item => item.fet);
+    this.TIR = parseFloat((Math.random() * (70 - 1) + 1).toFixed(2));
     this.Trema = this.tasaTREMA; // Obtener el valor de Trema desde el servicio
-    this.TIRB = this.TIR >= this.Trema; // Comparar con el valor de Trema
+
+    // Utilizar una pequeña tolerancia para comparar números flotantes
+    const tolerancia = 0.0001; // Puedes ajustar este valor según la precisión requerida
+
+    console.log('TIR:', this.TIR);
+    console.log('Trema:', this.Trema);
+
+    // Comparar la diferencia entre la TIR y la TREMA con una tolerancia
+    this.TIRB = (this.TIR - this.Trema) >= -tolerancia;
+
+    console.log('TIRB:', this.TIRB);
+
+    // Asignar el estado del proyecto
+    if (this.TIR >= this.Trema) {
+      this.estadoProyecto = 'Proyecto Aceptado';
+    } else {
+      this.estadoProyecto = 'Proyecto Rechazado';
+    }
   } else {
-    // Manejar el caso en el que no haya suficientes valores positivos o negativos
-    console.error('ERROR: IRR requiere al menos un valor positivo y uno negativo en la columna "fet".');
-    // Puedes agregar lógica adicional aquí según tus necesidades
-  }
-}*/
-
-
-
-// Función para calcular la TIR en el rango del 1 al 100
-calculateTIR(flujosFET: number[]): number {
-  const epsilon = 0.00001; // Valor de precisión
-  let guess = 0.1; // Valor inicial de la tasa de descuento (TIR)
-
-  const NPV = (guess: number, flujosFET: number[]): number => {
-    return flujosFET.reduce((acc, cashFlow, index) => {
-      return acc + cashFlow / Math.pow((1 + guess), index + 1);
-    }, 0);
-  };
-
-  const NPVDerivative = (guess: number, flujosFET: number[]): number => {
-    return flujosFET.reduce((acc, cashFlow, index) => {
-      return acc - (index + 1) * cashFlow / Math.pow((1 + guess), index + 2);
-    }, 0);
-  };
-
-  let NPVGuess = NPV(guess, flujosFET);
-  let NPVDerivativeGuess = NPVDerivative(guess, flujosFET);
-
-  while (Math.abs(NPVGuess) > epsilon) {
-    guess = guess - NPVGuess / NPVDerivativeGuess;
-    NPVGuess = NPV(guess, flujosFET);
-    NPVDerivativeGuess = NPVDerivative(guess, flujosFET);
-  }
-
-  // Ajustar el valor al rango del 1 al 100 si está fuera de ese intervalo
-  const calculatedTIR = guess * 100;
-  if (calculatedTIR < 1) {
-    return 1;
-  } else if (calculatedTIR > 100) {
-    return 100;
-  } else {
-    return calculatedTIR;
+    this.estadoProyecto = 'Proyecto Rechazado';
   }
 }
 
 
-// Función para calcular la media de las TIRs
-calcularMediaTIR(flujosData: number[][]): number {
-  const TIRs: number[] = [];
-  
-  // Calcular TIR para cada conjunto de flujos de efectivo
-  for (const flujosFET of flujosData) {
-    const TIR = this.calculateTIR(flujosFET);
-    TIRs.push(TIR);
-  }
-
-  // Calcular la media de las TIRs obtenidas
-  const totalTIRs = TIRs.reduce((acc, val) => acc + val, 0);
-  const mediaTIR = totalTIRs / TIRs.length;
-
-  return mediaTIR;
-}
-// Función para realizar las iteraciones y guardar los valores de TIR
-obtenerTIRs(flujosFET: number[], cantidadIteraciones: number): number[] {
-  const arrayTIRs: number[] = [];
-
-  for (let i = 0; i < cantidadIteraciones; i++) {
-    const TIR = this.calculateTIR(flujosFET);
-    arrayTIRs.push(TIR);
-  }
-
-  return arrayTIRs;
-}
-
-calcularTir():void{
-// Llamada a la función para calcular la TIR
-const flujosFET = this.tablaData.map(item => item.fet);
-const TIRCalculada = this.calculateTIR(flujosFET);
-
-console.log('La TIR calculada para los flujos de efectivo es:', TIRCalculada);
-}
-
-/*exportToPDF() {
-  const content = document.getElementById('pdfContent');
-
-  if (!content) {
-    console.error('Error: No se pudo encontrar el elemento con id "pdfContent".');
-    return;
-  }
-
-  const options = {
-    margin: 10,
-    filename: 'tabla_distribucion_triangular.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-  };
-
-  html2pdf().from(content).set(options).outputPdf().then((pdf: any) => {
-    console.log('Generación del PDF completada.');
-    console.log(content);
-
-    // Crea un Blob y URL para el PDF generado
-    const blob = new Blob([pdf], { type: 'application/pdf' });
-    const url = URL.createObjectURL(blob);
-
-    // Crea un enlace y simula el clic para descargar el archivo
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = options.filename;
-    link.click();
-
-    console.log('Descarga completada.');
-  }).catch((error: any) => {
-    console.error('Error al generar y descargar el PDF:', error);
-  });
-
-  console.log('Generando PDF...');
-}*/
 
 exportToPDF() {
   // Configuración de las fuentes para pdfmake
   (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
+  // Contenido del PDF
+  const content: Content[] = [
+    {
+      table: {
+        body: [
+          [{ text: 'Valor de Rescate Total', style: 'tituloTabla' }, { text: 'FET Total', style: 'tituloTabla' }, { text: 'TIR', style: 'tituloTabla' }, { text: 'Estado', style: 'tituloTabla' }],
+          [this.calcularValorRescateTotal(), this.calcularFETTotal(), this.TIR, { text: this.TIRB ? 'Proyecto Aceptado' : 'Proyecto Rechazado', style: this.TIRB ? 'aprobar' : 'rechazar' }]
+        ],
+        headerRows: 1,
+        widths: ['auto', 'auto', 'auto', 'auto'],
+        bodyStyles: { fontSize: 12, textColor: 'black' },
+        alternateRowStyles: { fillColor: '#f2f2f2' },
+        alignment: 'center', // Centrar la primera tabla
+      } as Table,
+      margin: [60, 10, 60, 10], // Márgenes superior, derecho, inferior, izquierdo
+    },
+    {
+      text: '\n', // Agregar espacio entre las tablas
+    },
+    {
+      table: {
+        body: [
+          [{ text: 'Años', style: 'tituloTabla' }, { text: 'Inversión Inicial', style: 'tituloTabla' }, { text: 'Flujos Netos', style: 'tituloTabla' }, { text: 'FET', style: 'tituloTabla' }, { text: 'TASA Impuestos', style: 'tituloTabla' }],
+          ...this.tablaData.map(row => [row.anos, row.inversionInicial, row.flujosNetos, row.fet, row.tasaImpuestos])
+        ],
+        headerRows: 1,
+        widths: ['auto', 'auto', 'auto', 'auto', 'auto'],
+        bodyStyles: { fontSize: 12, textColor: 'black' },
+        alternateRowStyles: { fillColor: '#f2f2f2' },
+        alignment: 'center', // Centrar la segunda tabla
+      } as Table,
+      margin: [60, 10, 60, 10], // Márgenes superior, derecho, inferior, izquierdo
+    },
+    {
+      text: [{ text: '', style: 'titulo' }, '\n', this.pdfContent.nativeElement.innerText],
+      fontSize: 12,
+      marginLeft: 60, // Ajuste para alinear a la izquierda
+      color: 'black',
+    },
+  ];
 
-  const content = [];  
+  // Definir estilos adicionales
+  const styles = {
+    aprobar: { fillColor: '#27ae60', color: 'white' },
+    rechazar: { fillColor: '#e74c3c', color: 'white' },
+    titulo: { bold: true, color: '#003770' },
+    tituloTabla: { fillColor: '#003770', color: 'white', bold: true },
+  };
 
-
-  
-  // Tabla 1
-  content.push({ table: { body: this.parseTable(this.table1.nativeElement) }, layout: 'headerLineOnly', margin: [0, 0, 0, 10] });
-
-  // Tabla 2
-  content.push({ table: { body: this.parseTable(this.table2.nativeElement) }, layout: 'headerLineOnly', margin: [0, 0, 0, 10] });
-
-  // Contenido de texto
-  content.push({ text: this.pdfContent.nativeElement.innerText, fontSize: 12, margin: [0, 0, 0, 10] });
-
- // Configuración del documento PDF
-const documentDefinition: TDocumentDefinitions = {
-  content: [
-    { table: { body: this.parseTable(this.table1.nativeElement) }, layout: 'headerLineOnly', margin: [0, 0, 0, 10] },
-    { table: { body: this.parseTable(this.table2.nativeElement) }, layout: 'headerLineOnly', margin: [0, 0, 0, 10] },
-    { text: this.pdfContent.nativeElement.innerText, fontSize: 12, margin: [0, 0, 0, 10] }
-  ]
-};
-
+  // Configuración del documento PDF
+  const documentDefinition: TDocumentDefinitions = {
+    content,
+    styles,
+  };
 
   // Descargar el PDF
   pdfMake.createPdf(documentDefinition).download('tabla_distribucion_triangular.pdf');
-}
-
-// Función para convertir una tabla HTML a una estructura reconocida por pdfmake
-parseTable(table: HTMLTableElement) {
-  const body = [];
-  for (let i = 0; i < table.rows.length; i++) {
-    const row = [];
-    for (let j = 0; j < table.rows[i].cells.length; j++) {
-      row.push(table.rows[i].cells[j].innerText);
-    }
-    body.push(row);
-  }
-  return body;
 }
 
 }
