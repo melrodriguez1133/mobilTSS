@@ -268,7 +268,7 @@ exportToPDF() {
       margin: [60, 10, 60, 10], // Márgenes superior, derecho, inferior, izquierdo
     },
     {
-      text: [{ text: '', style: 'titulo' }, '\n', this.pdfContent.nativeElement.innerText],
+      text: [{ text: 'Conclusión: ', style: 'titulo' }, '\n', this.pdfContent.nativeElement.innerText],
       fontSize: 12,
       marginLeft: 60, // Ajuste para alinear a la izquierda
       color: 'black',

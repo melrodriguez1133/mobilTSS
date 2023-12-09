@@ -72,13 +72,21 @@
     </tbody>
   </table>
 </div>
-<p #pdfContent id="pdfContent" *ngIf="mostrarConclusion"><strong>Conclusion:</strong>
-  <span *ngIf="estadoProyecto === 'Proyecto Aceptado'">
+<ion-card-header>
+  <h1 class="step-title" *ngIf="mostrarConclusion">Conclusión de la Simulación</h1>
+</ion-card-header>
+<ion-card-content *ngIf="mostrarConclusion">
+  <p #pdfContent class="conclusion" *ngIf="estadoProyecto === 'Proyecto Aceptado'; else rechazar">
+    <!--<strong>Conclusion:</strong>-->
     La Tasa Interna de Retorno {{ TIR }}% es más alta que la Tasa de Requerimiento Mínima de Aceptación {{ Trema }}%. Esto significa que el proyecto tiene el potencial de generar más beneficios de los esperados, lo cual es una señal positiva. Por lo tanto, recomendamos aceptar el proyecto debido a que se espera que genere ganancias que superen nuestras expectativas mínimas. Esto sugiere que la inversión será rentable y nos permitirá recuperar nuestro dinero con rendimientos adicionales.
-  </span>
-  <span *ngIf="estadoProyecto === 'Proyecto Rechazado'">
-    La Tasa Interna de Retorno {{ TIR }}% es menor que la Tasa de Requerimiento Mínima de Aceptación {{ Trema }}%. Esto significa que el proyecto no cumple con nuestras expectativas mínimas de rentabilidad. Por lo tanto, No se recomienda invertir en el proyecto, ya que no se espera que genere suficientes beneficios para justificar la inversión. Es mejor buscar otras oportunidades de inversión que ofrezcan rendimientos más atractivos y estén en línea con nuestros objetivos financieros.
-  </span>
-</p>
+  </p>
+  <ng-template #rechazar>
+    <p #pdfContent class="conclusion">
+      <!--<strong>Conclusion:</strong>-->
+      La Tasa Interna de Retorno {{ TIR }}% es menor que la Tasa de Requerimiento Mínima de Aceptación {{ Trema }}%. Esto significa que el proyecto no cumple con nuestras expectativas mínimas de rentabilidad. Por lo tanto, No se recomienda invertir en el proyecto, ya que no se espera que genere suficientes beneficios para justificar la inversión. Es mejor buscar otras oportunidades de inversión que ofrezcan rendimientos más atractivos y estén en línea con nuestros objetivos financieros.
+    </p>
+  </ng-template>
+</ion-card-content>
+
 <ion-button  expand="block" class="blue-button" (click)="exportToPDF()">Exportar a PDF</ion-button>
 </ion-content>
