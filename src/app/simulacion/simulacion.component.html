@@ -23,10 +23,10 @@
   <br>
   <!-- Tabla adicional para Valor de Rescate Total, FET Total y TIR -->
 
-  <div *ngIf="TIR !== 0">
-    <p>Tasa Interna de Retorno (TIR): {{ TIR }}%</p>
+  <div *ngIf="TIR !== 0" class="tir-container">
+    <p class="tir-text">Tasa Interna de Retorno (TIR): {{ TIR }}%</p>
   </div>
-  <table #table1 class="blue-header">
+    <table #table1 class="blue-header">
     <thead>
       <tr>
         <th>Valor de Rescate Total</th>

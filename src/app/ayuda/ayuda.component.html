@@ -18,18 +18,21 @@
       <ion-label>Soporte Técnico</ion-label>
     </ion-item>
 
-    <ion-item class="menu-item">
+    <ion-item class="menu-item" (click)="toggleGuideSubMenu()">
       <ion-icon name="document-text-outline" slot="start"></ion-icon>
       <ion-label>Guía</ion-label>
-      <ion-list>
-        <ion-item class="menu-item-sub" [routerLink]="['/video-guia']">
-          <ion-label>Guía en Video</ion-label>
-        </ion-item>
-        <ion-item class="menu-item-sub" [routerLink]="['/guia-escrita']">
-          <ion-label>Guía Escrita</ion-label>
-        </ion-item>
-      </ion-list>
+      <ion-icon name="chevron-forward" slot="end" *ngIf="showGuideSubMenu"></ion-icon>
     </ion-item>
+    <!-- Submenú de Guía -->
+    <ion-list *ngIf="showGuideSubMenu">
+      <ion-item class="menu-item-sub" [routerLink]="['/video-guia']">
+        <ion-label>Guía en Video</ion-label>
+      </ion-item>
+      <ion-item class="menu-item-sub" [routerLink]="['/guia-escrita']">
+        <ion-label>Guía Escrita</ion-label>
+      </ion-item>
+    </ion-list>
   </ion-list>
 </ion-content>
+
 

@@ -1,53 +1,55 @@
-/* modal-mensaje.component.scss */
-
 /* Estilos para el modal */
 ion-modal {
-    --height: 60%;
-    --width: 60%;
-    height: var(--height);
-    width: var(--width);
-    max-height: var(--height);
-    max-width: var(--width);
-    margin: auto;
-    top: 20%;
-    left: 20%;
-    transform: translate(-20%, -20%);
-    background-color: white; /* Color de fondo del modal */
-    border-radius: 10px; /* Borde redondeado del modal */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra del modal */
-  }
-  
-  /* Estilos para el contenido del modal */
-  ion-content {
-    --background: linear-gradient(45deg, #e30113, #003770);
-    text-align: center;
-    padding: 20px;
-  }
-  
-  /* Estilos para el botón de cerrar */
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: red; /* Color del botón de cerrar */
-  }
-  ion-item {
-    //margin-bottom: 15px;
-    --background: transparent;
-    --color: #fff;
-    --border-color: #fff;
-    //--border-radius: 10px;
+  --height: 70vh; /* Ajusta la altura al 70% de la altura de la ventana */
+  --width: 70vw; /* Ajusta el ancho al 70% del ancho de la ventana */
+  height: var(--height);
+  width: var(--width);
+  max-height: var(--height);
+  max-width: var(--width);
+  margin: auto;
+  top: 50%; /* Centra verticalmente */
+  left: 50%; /* Centra horizontalmente */
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-  ion-item::part(native) {
-      //background-color: #fff;
-      border-color: #fff;
-      color: #fff;
-      //border-radius: 10px;
+
+/* Estilos para el contenido del modal */
+ion-content {
+  --background: linear-gradient(45deg, #e30113, #003770);
+  text-align: center;
+  padding: 20px;
+  color: white; /* Color del texto dentro del modal */
 }
-.list-ios{
+
+/* Estilos para el botón de cerrar */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: red; /* Color del botón de cerrar */
+}
+
+/* Estilos para los elementos dentro del modal */
+ion-item {
+  --background: transparent;
+  --color: white; /* Color del texto del ion-item */
+  --border-color: white; /* Color del borde del ion-item */
+}
+
+ion-item::part(native) {
+  border-color: white; /* Color del borde del ion-item */
+  color: white; /* Color del texto del ion-item */
+}
+
+.list-ios {
   background: transparent;
 }
-.imagen-ayuda{
+
+/* Estilos para la imagen de ayuda */
+.imagen-ayuda {
   width: 100px;
+  display: block;
+  margin: 0 auto; /* Centra la imagen horizontalmente */
 }
-  

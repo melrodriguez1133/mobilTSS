@@ -92,4 +92,12 @@ table {
   tr:first-child {
     font-weight: bold;
   }
-  
+  /* Estilos para los mensajes de error */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  font-style: italic; /* Cambia el estilo a cursiva para los mensajes de error */
+  display: block; /* Hace que los mensajes de error ocupen su propio espacio */
+  max-width: 300px; /* Ancho máximo para evitar que se extiendan demasiado */
+}

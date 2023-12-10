@@ -78,6 +78,7 @@ table {
   //margin-bottom: 50px; /* Ajustar el valor según sea necesario */
 }
 
+
 /* Estilos para las líneas de las celdas */
 td, th {
   padding: 10px;
@@ -148,3 +149,23 @@ td > *:is(span, div, p, h1, h2, h3, h4, h5, h6, strong, b) {
 }
 
 
+/* Estilos para el contenedor del elemento con *ngIf */
+.tir-container {
+  margin: 20px auto; /* Margen de 20px en la parte superior e inferior y centrado horizontalmente */
+  padding: 15px; /* Relleno interno de 15px */
+  border: 2px solid white; /* Borde de 2px sólido con color azul (puedes cambiar el color) */
+  border-radius: 5px; /* Bordes redondeados */
+  text-align: center; /* Centrar el texto dentro del contenedor */
+  width: fit-content; /* Ancho ajustado al contenido */
+  max-width: 80%; /* Ancho máximo del contenedor */
+  background-color: #fff; /* Fondo blanco */
+}
+
+/* Estilos para el texto dentro del contenedor */
+.tir-text {
+  font-size: 18px; /* Tamaño de fuente de 18px */
+  color: #000; /* Color del texto negro */
+  font-weight: bold; /* Texto en negrita */
+  margin: 0; /* Eliminar el margen predeterminado del párrafo */
+  padding: 5px 0; /* Relleno de 5px arriba y abajo */
+}

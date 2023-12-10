@@ -5,10 +5,14 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './ayuda.component.html',
   styleUrls: ['./ayuda.component.scss'],
 })
-export class AyudaComponent  implements OnInit {
+export class AyudaComponent   {
 
-  constructor() { }
+  showGuideSubMenu: boolean = false;
 
-  ngOnInit() {}
+  constructor() {}
+
+  toggleGuideSubMenu() {
+    this.showGuideSubMenu = !this.showGuideSubMenu;
+  }
 
 }
