@@ -186,15 +186,16 @@ export class SimulacionComponent implements OnInit {
         fet: 0,
         tasaImpuestos: parseFloat((Math.random() * (0.15 - 0.13) + 0.13).toFixed(2))
       };
+      this.tablaData.push(data);
       this.calcularInversionInicial();
       this.calcularFlujosNetos();
       this.calcularFetFromData();
       this.calcularValorRescateTotal();
       this.calcularFETTotal();
       this.calcularTir();
+      
+      }
       this.mostrarConclusion = true;
-      this.tablaData.push(data);
-    }
     this.calcularValores();
 }
 calcularInversionInicial(): void {

@@ -1,47 +1,52 @@
+
 ion-content {
-    --background: linear-gradient(45deg, #e30113, #003770);
-    padding: 20px;
-    text-align: center;
-  }
+  --background: linear-gradient(45deg, #e30113, #003770);
+  padding: 20px;
+  text-align: center;
+}
 
-  ion-item {
-    margin-bottom: 15px;
-    --background: #fff;
-    --border-color: #000;
-    --color: #000;
-    --border-radius: 10px;
-  }
+ion-item {
+  margin-bottom: 15px;
+  --background: #fff;
+  --border-color: #000;
+  --color: #000;
+  --border-radius: 10px;
+}
 
-  ion-item::part(native) {
-    background-color: #fff;
-    border-color: #000;
-    color: #000;
-    border-radius: 10px;
-  }
+ion-item::part(native) {
+  background-color: #fff;
+  border-color: #000;
+  color: #000;
+  border-radius: 10px;
+}
 
-  ion-button {
-    --background-color: #3880ff;
-    --color: #ffffff;
-    --border-radius: 10px;
-  }
+ion-button {
+  --background-color: #3880ff;
+  --color: #ffffff;
+  --border-radius: 10px;
+}
 
-  ion-button::part(native) {
-    background-color: #3880ff;
-    color: #ffffff;
-    border-radius: 10px;
-  }
+ion-button::part(native) {
+  background-color: #3880ff;
+  color: #ffffff;
+  border-radius: 10px;
+}
 
-  ion-card {
-    --background: transparent;
-    --border: 10px solid #000;
-  }
+ion-card {
+  --background: transparent;
+  --border: 10px solid #000;
+}
 
-  ion-card::part(native) {
-    background: transparent;
-    border: 10px solid #000;
-  }
-  
-  .imagen-soporte {
-    width: 100px;
-    margin-top: 10px;
-  }
+ion-card::part(native) {
+  background: transparent;
+  border: 10px solid #000;
+}
+
+.imagen-soporte {
+  width: 100px;
+  margin-top: 10px;
+}
+.error-message {
+  color: red;
+  margin-left: 10px;
+}
