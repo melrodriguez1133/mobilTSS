@@ -4,6 +4,10 @@ import { DataService } from '../data.service';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Content, Table, TDocumentDefinitions } from 'pdfmake/interfaces';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DatosComponent } from '../datos/datos.component';
+
+
 //import { Finance }from 'financejs';
 interface DatosTabla {
   anos: number;
@@ -12,7 +16,18 @@ interface DatosTabla {
   fet: number;
   tasaImpuestos: number;
 }
-
+interface CalculatedValues {
+  inversionInicial: {
+    pesimista: number;
+    masProbable: number;
+    optimista: number;
+  };
+  flujoNeto: {
+    pesimista: number;
+    masProbable: number;
+    optimista: number;
+  };
+}
 @Component({
   selector: 'app-simulacion',
   templateUrl: './simulacion.component.html',
@@ -33,13 +48,89 @@ export class SimulacionComponent implements OnInit {
   TIR: number = 0; // Inicializa TIR en 0
   Trema:number=0;// Inicializa Trema en 0
   mostrarConclusion: boolean = false;
+  miFormulario: FormGroup;
   // Referencia a los elementos HTML que deseas incluir en el PDF
   @ViewChild('pdfContent') pdfContent!: ElementRef<any>;
   @ViewChild('table1') table1!: ElementRef<any>;
   @ViewChild('table2') table2!: ElementRef<any>;
 
-  constructor(private dataService: DataService) { } // Inyecta el DataService en el constructor
+  constructor(private formBuilder: FormBuilder, private dataService: DataService) {
+    this.miFormulario = this.formBuilder.group({
+      inversionInicial: ['', [Validators.required, Validators.min(0)]],
+      desviacionInversionInicial: ['', [Validators.required, Validators.min(0)]],
+      flujoNetoInicial: ['', [Validators.required, Validators.min(0)]],
+      desviacionFlujoNeto: ['', [Validators.required, Validators.min(0)]],
+      tasaTREMA: ['', [Validators.required, Validators.min(1), Validators.max(100)]]
+    }, { validators: this.validarDesviacion });}
 
+    validarDesviacion(formGroup: FormGroup | null) {
+      if (!formGroup) {
+        return;
+      }
+    
+      const inversionInicial = formGroup.get('inversionInicial');
+      const desviacionInversionInicial = formGroup.get('desviacionInversionInicial');
+      const flujoNetoInicial = formGroup.get('flujoNetoInicial');
+      const desviacionFlujoNeto = formGroup.get('desviacionFlujoNeto');
+    
+      if (
+        inversionInicial && desviacionInversionInicial &&
+        flujoNetoInicial && desviacionFlujoNeto &&
+        desviacionInversionInicial.value !== null && desviacionFlujoNeto.value !== null &&
+        flujoNetoInicial.value !== null
+      ) {
+        if (
+          desviacionInversionInicial.value > inversionInicial.value ||
+          desviacionFlujoNeto.value > flujoNetoInicial.value
+        ) {
+          desviacionInversionInicial.setErrors({ 'invalidDesviacion': true });
+          desviacionFlujoNeto.setErrors({ 'invalidDesviacion': true });
+        } else {
+          desviacionInversionInicial.setErrors(null);
+          desviacionFlujoNeto.setErrors(null);
+        }
+      }
+    }
+    
+    calcularValores(){
+      const datos = this.dataService.obtenerDatosAlmacenados();
+
+      // Calcular los escenarios
+      const inversionInicial = datos.inversionInicial;
+      const desviacionInversionInicial = datos.desviacionInversionInicial;
+      const flujoNetoInicial = datos.flujoNetoInicial;
+      const desviacionFlujoNeto = datos.desviacionFlujoNeto;
+  
+      console.log(inversionInicial,desviacionInversionInicial,flujoNetoInicial,desviacionFlujoNeto );
+      
+      this.calculatedValues = {
+        inversionInicial: {
+          pesimista: inversionInicial + desviacionInversionInicial,
+          masProbable: inversionInicial,
+          optimista: inversionInicial - desviacionInversionInicial,
+        },
+        flujoNeto: {
+          pesimista: flujoNetoInicial + desviacionFlujoNeto,
+          masProbable: flujoNetoInicial,
+          optimista: flujoNetoInicial - desviacionFlujoNeto,
+        }
+        
+      };
+    
+    }
+
+    calculatedValues: CalculatedValues | null = {
+      inversionInicial: {
+        pesimista: 0,
+        masProbable: 0,
+        optimista: 0,
+      },
+      flujoNeto: {
+        pesimista: 0,
+        masProbable: 0,
+        optimista: 0,
+      },
+    };
 
   parseTable(table: HTMLTableElement): any[] {
     const body = [];
@@ -104,6 +195,7 @@ export class SimulacionComponent implements OnInit {
       this.mostrarConclusion = true;
       this.tablaData.push(data);
     }
+    this.calcularValores();
 }
 calcularInversionInicial(): void {
   this.tablaData.forEach(item => {
@@ -190,14 +282,6 @@ calcularFETTotal(): number {
   return Number(sumaFET.toFixed(2)); // Devuelve el resultado redondeado a 2 decimales
 }
 
-
-/*calcularTIR(): void {
-  const flujosFET = this.tablaData.map(item => item.fet);
-  this.TIR = parseFloat((Math.random() * (50 - 1) + 1).toFixed(2));
-  this.Trema =this.tasaTREMA; // Obtener el valor de Trema desde el servicio
-  this.TIRB = this.TIR >= this.Trema; // Comparar con el valor de Trema
-}*/
-
 calcularTir() {
   const tieneDatosFET = this.tablaData.some(item => item.fet !== 0);
 
@@ -208,9 +292,6 @@ calcularTir() {
 
     // Utilizar una pequeña tolerancia para comparar números flotantes
     const tolerancia = 0.0001; // Puedes ajustar este valor según la precisión requerida
-
-    console.log('TIR:', this.TIR);
-    console.log('Trema:', this.Trema);
 
     // Comparar la diferencia entre la TIR y la TREMA con una tolerancia
     this.TIRB = (this.TIR - this.Trema) >= -tolerancia;
@@ -229,13 +310,84 @@ calcularTir() {
 }
 
 
-
 exportToPDF() {
   // Configuración de las fuentes para pdfmake
   (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
+
+    
+  // Verifica que el formulario esté inicializado y tenga valores
+  if (this.miFormulario && this.miFormulario.value) {
+    // Almacena los valores del formulario en variables
+    const inversionInicial = this.miFormulario.get('inversionInicial')?.value;
+    const desviacionInversionInicial = this.miFormulario.get('desviacionInversionInicial')?.value;
+    const flujoNetoInicial = this.miFormulario.get('flujoNetoInicial')?.value;
+    const desviacionFlujoNeto = this.miFormulario.get('desviacionFlujoNeto')?.value;
+    const tasaTREMA = this.miFormulario.get('tasaTREMA')?.value;
   // Contenido del PDF
   const content: Content[] = [
+    {
+      text: 'Valores Iniciales',
+      style: 'titulo',
+      marginLeft: 60,
+    },
+    {
+      table: {
+        body: [
+          [
+            { text: 'Inversión Inicial', style: 'tituloTabla' },
+            { text: 'Desviación Inv. Inicial', style: 'tituloTabla' },
+            { text: 'Flujo Neto Inicial', style: 'tituloTabla' },
+            { text: 'Desviación Flujo Neto', style: 'tituloTabla' },
+            { text: 'TASA TREMA', style: 'tituloTabla' }
+          ],
+          [
+            this.inversionInicial,
+            this.desviacionInversionInicial,
+            this.flujoNetoInicial,
+            this.desviacionFlujoNeto,
+            this.tasaTREMA,
+          ]
+        ],
+        headerRows: 1,
+        widths: ['auto', 'auto', 'auto', 'auto', 'auto'],
+        bodyStyles: { fontSize: 12, textColor: 'black' },
+        alternateRowStyles: { fillColor: '#f2f2f2' },
+        alignment: 'center', // Centrar la tabla de valores iniciales
+      } as Table,
+      margin: [60, 10, 60, 10], // Márgenes superior, derecho, inferior, izquierdo
+    },
+    {
+      table: {
+        body: [
+          [{ text: 'Pesimista', style: 'tituloTabla' }, { text: 'Mas Probable', style: 'tituloTabla' }, { text: 'Optimista', style: 'tituloTabla' }],
+          [
+            this.calculatedValues?.inversionInicial.pesimista,
+            this.calculatedValues?.inversionInicial.masProbable,
+            this.calculatedValues?.inversionInicial.optimista,
+          ],
+          [
+            this.calculatedValues?.flujoNeto.pesimista,
+            this.calculatedValues?.flujoNeto.masProbable,
+            this.calculatedValues?.flujoNeto.optimista,
+          ]
+        ],
+        headerRows: 1,
+        widths: ['auto', 'auto', 'auto'],
+        bodyStyles: { fontSize: 12, textColor: 'black' },
+        alternateRowStyles: { fillColor: '#f2f2f2' },
+        alignment: 'center',
+      } as Table,
+      margin: [60, 10, 60, 10],
+    },
+    {
+      text: '\n', // Agregar espacio entre las tablas
+    },
+    {
+      text: 'Resultados Simulación',
+      style: 'titulo',
+      marginLeft: 60,
+    },
     {
       table: {
         body: [
@@ -268,7 +420,10 @@ exportToPDF() {
       margin: [60, 10, 60, 10], // Márgenes superior, derecho, inferior, izquierdo
     },
     {
-      text: [{ text: 'Conclusión: ', style: 'titulo' }, '\n', this.pdfContent.nativeElement.innerText],
+      text: '\n', // Agregar espacio entre las tablas
+    },
+    {
+      text: [{ text: 'Conclusión ', style: 'titulo' }, '\n','\n', this.pdfContent.nativeElement.innerText],
       fontSize: 12,
       marginLeft: 60, // Ajuste para alinear a la izquierda
       color: 'black',
@@ -291,6 +446,6 @@ exportToPDF() {
 
   // Descargar el PDF
   pdfMake.createPdf(documentDefinition).download('tabla_distribucion_triangular.pdf');
+  }
 }
-
 }
