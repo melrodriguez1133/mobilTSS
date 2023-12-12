@@ -68,8 +68,14 @@
       <ion-button type="submit" [disabled]="!miFormulario.valid" >Enviar</ion-button>
       <ion-button type="button" (click)="limpiarFormulario()" color="danger">Limpiar</ion-button>
     </div>
+    <ion-button (click)="botonconceptos()" expand="block" class="custom-button">
+      <ion-icon slot="start" name="book-outline"></ion-icon>
+  Conceptos Básicos
+    </ion-button>
   </form>
-  <table *ngIf="mostrarTabla">
+  
+  <div *ngIf="mostrarTabla">
+  <table >
     <thead>
       <tr>
         <th></th>
@@ -93,5 +99,10 @@
       </tr>
     </tbody>
   </table>
+  <ion-button (click)="botonsimulacion()" expand="block" class="custom-button">
+    <ion-icon slot="start" name="play-outline"></ion-icon>
+  Inicia tu simulación
+    </ion-button>
+    </div>
 
 </ion-content>

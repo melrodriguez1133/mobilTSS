@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <h1>Soporte Tecnico</h1>
+  <h1>Soporte Técnico</h1>
   <img src="../../assets/icon/Soporte-Tecnico.png" alt="Soporte Técnico Imagen" class="imagen-soporte">
   <ion-card>
     <ion-card-content>
@@ -45,6 +45,10 @@
         <ion-button type="submit" [disabled]="!soporteForm.valid" expand="full" class="ion-margin-top">Enviar</ion-button>
 
       </form>
+      <ion-button (click)="volverAlMenu()" expand="block" class="custom-button">
+        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+        Volver al Menú
+      </ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

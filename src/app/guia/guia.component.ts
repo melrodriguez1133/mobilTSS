@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-guia',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./guia.component.scss'],
 })
 
-export class GuiaComponent  implements OnInit {
+export class GuiaComponent  {
 
-  constructor() { }
+  constructor(private router: Router) {
+    // Constructor del componente
+  }
 
-  ngOnInit() {}
-
+  volverAlMenu() {
+    this.router.navigate(['/datos']);
+  }
 }

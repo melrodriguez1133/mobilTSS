@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import { ModalController } from '@ionic/angular';
 import { ModalMensajeComponent } from '../modal-mensaje/modal-mensaje.component';
+import { Router } from '@angular/router';
 
 
 interface CalculatedValues {
@@ -32,7 +33,7 @@ export class DatosComponent  {
 
   mostrarTabla: boolean = false;
 
-  constructor(private modalController: ModalController,private formBuilder: FormBuilder,private dataService: DataService ) {
+  constructor(private modalController: ModalController,private formBuilder: FormBuilder,private dataService: DataService,private router: Router ) {
     this.miFormulario = this.formBuilder.group({
       inversionInicial: ['', [Validators.required, Validators.min(0)]],
       desviacionInversionInicial: ['', [Validators.required, Validators.min(0)]],
@@ -143,5 +144,12 @@ export class DatosComponent  {
   mostrarTablaClick() {
     this.calcularValores(); // Calcular valores
     this.mostrarTabla = true; // Cambiar el estado para mostrar la tabla
+  }
+
+  botonsimulacion() {
+    this.router.navigate(['/simulacion']);
+  }
+  botonconceptos() {
+    this.router.navigate(['/conceptos-basicos']);
   }
 }

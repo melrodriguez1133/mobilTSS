@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import * as emailjs from 'emailjs-com';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-soporte-tecnico',
   templateUrl: './soporte-tecnico.component.html',
   styleUrls: ['./soporte-tecnico.component.scss'],
 })
-export class SoporteTecnicoComponent implements OnInit {
+export class SoporteTecnicoComponent  {
 
   // Define el formulario
   soporteForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,private router: Router) {
     // Inicializa el formulario con validadores
     this.soporteForm = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.minLength(2)]],
@@ -22,7 +23,6 @@ export class SoporteTecnicoComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
   soloNumeros(event: any) {
     const pattern = /[0-9]/;
     let inputChar = String.fromCharCode(event.charCode);
@@ -63,5 +63,8 @@ export class SoporteTecnicoComponent implements OnInit {
       console.log('El formulario no es válido');
       // Puedes mostrar un mensaje de error aquí
     }
+  }
+  volverAlMenu() {
+    this.router.navigate(['/ayuda']);
   }
 }
