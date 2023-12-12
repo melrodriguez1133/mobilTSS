@@ -7,7 +7,8 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <h1 class="header-title">Conceptos basicos</h1>
+
+  <h1 class="header-title">Conceptos básicos</h1>
 
   
     <ion-card-header>
@@ -73,6 +74,14 @@
         <li>Se concluye comparando la TIR calculada con la TREMA. Si la probabilidad de que la TIR sea menor que la TREMA es menor al 10%, se acepta el proyecto.</li>
       </ul>
     </ion-card-content>
+    <ion-button (click)="volversimulacion()" expand="block" class="custom-buttonSimu">
+      <ion-icon slot="start" name="play-outline"></ion-icon>
+  Inicia tu simulación
+    </ion-button>
     
- 
+    <ion-button (click)="volverAlMenu()" expand="block" class="custom-button">
+      <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+      Volver al Menú
+    </ion-button>
+
 </ion-content>

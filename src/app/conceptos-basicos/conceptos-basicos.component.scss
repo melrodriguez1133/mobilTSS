@@ -21,3 +21,32 @@ ion-content {
   .step-title {
     color: #fff;
   }
+ /* Estilos para el botón personalizado */
+.custom-button {
+  --background: #4CAF50; /* Color de fondo */
+  --color: white; /* Color del texto */
+  --border-radius: 10px; /* Radio de borde */
+  --padding-start: 10px; /* Espaciado del ícono */
+  font-weight: bold; /* Texto en negrita */
+  text-transform: uppercase; /* Texto en mayúsculas */
+  --box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+  transition: background-color 0.3s ease; /* Transición suave al pasar el cursor */
+}
+
+/* Estilos al pasar el cursor sobre el botón */
+.custom-button:hover {
+  --background: #45a049; /* Cambio de color al pasar el cursor */
+}
+/* Estilos para el botón personalizado */
+.custom-buttonSimu {
+  --background: #3498db; /* Cambia el color de fondo del botón a azul */
+  --color: white; /* Cambia el color del texto a blanco */
+  --border-radius: 10px; /* Ajusta el radio de borde */
+  font-weight: bold; /* Texto en negrita */
+  text-transform: uppercase; /* Texto en mayúsculas */
+}
+
+/* Estilos al pasar el cursor sobre el botón */
+.custom-buttonSimu:hover {
+  --background: #2980b9; /* Cambio de color al pasar el cursor */
+}
