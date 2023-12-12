@@ -361,20 +361,22 @@ exportToPDF() {
     {
       table: {
         body: [
-          [{ text: 'Pesimista', style: 'tituloTabla' }, { text: 'Mas Probable', style: 'tituloTabla' }, { text: 'Optimista', style: 'tituloTabla' }],
+          [{ text: 'Variable', style: 'tituloTabla' }, { text: 'Pesimista', style: 'tituloTabla' }, { text: 'Mas Probable', style: 'tituloTabla' }, { text: 'Optimista', style: 'tituloTabla' }],
           [
+            { text: "Inversion Inicial", style: 'tituloVar' },
             this.calculatedValues?.inversionInicial.pesimista,
             this.calculatedValues?.inversionInicial.masProbable,
             this.calculatedValues?.inversionInicial.optimista,
           ],
           [
+            { text: "Flujo Neto", style: 'tituloVar' },
             this.calculatedValues?.flujoNeto.pesimista,
             this.calculatedValues?.flujoNeto.masProbable,
             this.calculatedValues?.flujoNeto.optimista,
           ]
         ],
         headerRows: 1,
-        widths: ['auto', 'auto', 'auto'],
+        widths: ['auto', 'auto', 'auto', 'auto'],
         bodyStyles: { fontSize: 12, textColor: 'black' },
         alternateRowStyles: { fillColor: '#f2f2f2' },
         alignment: 'center',
@@ -437,6 +439,7 @@ exportToPDF() {
     rechazar: { fillColor: '#e74c3c', color: 'white' },
     titulo: { bold: true, color: '#003770' },
     tituloTabla: { fillColor: '#003770', color: 'white', bold: true },
+    tituloVar: { fillColor: '#82A1CE', color: 'white', bold: true },
   };
 
   // Configuración del documento PDF
