@@ -17,7 +17,7 @@ export class SoporteTecnicoComponent implements OnInit {
     this.soporteForm = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.minLength(2)]],
       correo: ['', [Validators.required, Validators.email]],
-      telefono: ['', [Validators.required, Validators.pattern("^((\\+591-?)|0)?[0-8]{8}$")]],
+      telefono: ['', [Validators.required, Validators.pattern("^((\\+591-?)|0)?[0-9]{8}$")]],
       descripcionProblema: ['', [Validators.required, Validators.minLength(10)]],
     });
   }
