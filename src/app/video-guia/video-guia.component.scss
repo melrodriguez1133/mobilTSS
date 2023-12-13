@@ -1,0 +1,32 @@
+ion-content {
+    --background: linear-gradient(45deg, #e30113, #003770);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  h1{
+    margin: 10px;
+    text-align: center;
+  }
+  video{
+    display: block;
+    margin: auto;
+    width: 320px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 40px;
+  }
+   /* Estilos para el botón personalizado */
+.custom-button {
+    --background: #4CAF50; /* Color de fondo */
+    --color: white; /* Color del texto */
+    --border-radius: 10px; /* Radio de borde */
+    --padding-start: 10px; /* Espaciado del ícono */
+    font-weight: bold; /* Texto en negrita */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    --box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+    transition: background-color 0.3s ease; /* Transición suave al pasar el cursor */
+  }

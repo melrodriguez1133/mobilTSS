@@ -6,33 +6,38 @@
 
 <ion-content class="ion-padding">
   <h1>¿Cómo podemos ayudarte?</h1>
-  <!--<img src="../../assets/icon/Ayuda.png" alt="Ayuda Imagen" class="imagen-ayuda">-->
+  
   <ion-list lines="none">
+    <!-- Conceptos Básicos -->
     <ion-item class="menu-item" [routerLink]="['/conceptos-basicos']">
       <ion-icon name="book-outline" slot="start"></ion-icon>
       <ion-label>Conceptos Básicos</ion-label>
     </ion-item>
 
+    <!-- Soporte Técnico -->
     <ion-item class="menu-item" [routerLink]="['/soporte-tecnico']">
       <ion-icon name="headset-outline" slot="start"></ion-icon>
       <ion-label>Soporte Técnico</ion-label>
     </ion-item>
 
+    <!-- Guía -->
     <ion-item class="menu-item" (click)="toggleGuideSubMenu()">
       <ion-icon name="document-text-outline" slot="start"></ion-icon>
       <ion-label>Guía</ion-label>
       <ion-icon name="chevron-forward" slot="end" *ngIf="showGuideSubMenu"></ion-icon>
     </ion-item>
+
     <!-- Submenú de Guía -->
     <ion-list *ngIf="showGuideSubMenu">
+      <!-- Guía en Video -->
       <ion-item class="menu-item-sub" [routerLink]="['/video-guia']">
         <ion-label>Guía en Video</ion-label>
       </ion-item>
+
+      <!-- Guía Escrita -->
       <ion-item class="menu-item-sub" [routerLink]="['/guia-escrita']">
         <ion-label>Guía Escrita</ion-label>
       </ion-item>
     </ion-list>
   </ion-list>
 </ion-content>
-
-

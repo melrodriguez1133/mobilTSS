@@ -15,6 +15,7 @@ import { ModalMensajeComponent } from './modal-mensaje/modal-mensaje.component';
 import { ConceptosBasicosComponent } from './conceptos-basicos/conceptos-basicos.component';
 import { SoporteTecnicoComponent } from './soporte-tecnico/soporte-tecnico.component';
 import { SimulacionComponent } from './simulacion/simulacion.component';
+import { VideoGuiaComponent } from './video-guia/video-guia.component';
 
 
 // Material de Ionic
@@ -32,6 +33,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ConceptosBasicosComponent,
     SoporteTecnicoComponent,
     SimulacionComponent,
+    VideoGuiaComponent,
   ],
   imports: [
     BrowserModule,

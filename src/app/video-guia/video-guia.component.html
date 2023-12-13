@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Video Guia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h1 class="header-title">Guía tutorial en video</h1>
+  
+
+  <div>
+    <video autoplay controls>
+      <source src="../../assets/Video/Tutorial Aplicacion de Inversiones.mp4" type="video/mp4">
+      Tu navegador no soporta la etiqueta de video.
+    </video>
+  </div>
+  <ion-button (click)="volverAlMenu()" expand="block" class="custom-button">
+    <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+    Volver al Menú
+  </ion-button>
+</ion-content>
