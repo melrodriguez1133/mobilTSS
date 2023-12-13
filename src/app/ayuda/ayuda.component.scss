@@ -5,10 +5,16 @@ ion-content {
   padding: 20px;
 }
 
+/* Estilos comunes para íconos y texto del menú */
+.menu-icon,
+.menu-item,
+.close-button {
+  color: #fff; /* Color del ícono y del texto */
+}
+
 /* Estilos para los íconos del menú */
 .menu-icon {
   font-size: 24px;
-  color: #fff; /* Color del ícono */
 }
 
 /* Estilos para los ítems del menú */
@@ -16,7 +22,6 @@ ion-content {
   padding: 15px;
   border-bottom: 1px solid #ccc; /* Línea divisoria entre elementos */
   background-color: transparent !important; /* Fondo completamente transparente */
-  color: #fff; /* Color del texto */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -32,7 +37,6 @@ ion-content {
   top: 20px;
   right: 20px;
   font-size: 20px;
-  color: red; /* Color del botón de cerrar */
 }
 
 /* Estilos para la imagen de ayuda */

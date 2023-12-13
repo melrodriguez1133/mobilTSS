@@ -1,3 +1,4 @@
+<!-- Cabecera -->
 <ion-header>
   <ion-toolbar>
     <ion-title>
@@ -8,8 +9,12 @@
 </ion-header>
 
 <ion-content>
-  <h2>  Valores Iniciales</h2>
+  <!-- Sección de Valores Iniciales -->
+  <h2>Valores Iniciales</h2>
+
+  <!-- Formulario -->
   <form [formGroup]="miFormulario" (ngSubmit)="enviarFormulario()" novalidate *ngIf="miFormulario">
+    <!-- Campo de Inversión Inicial -->
     <ion-item>
       <ion-label position="floating">Inversión Inicial</ion-label>
       <ion-input formControlName="inversionInicial" type="number"></ion-input>
@@ -18,91 +23,101 @@
       <p class="error-message" *ngIf="miFormulario.get('inversionInicial')?.hasError('required')">La inversión inicial es requerida.</p>
       <p class="error-message" *ngIf="miFormulario.get('inversionInicial')?.hasError('min')">Ingrese un número positivo.</p>
     </div>
- <!-- Campo de entrada para desviación estándar de la inversión inicial -->
- <ion-item>
-  <ion-label position="floating">Desviación Inversión Inicial</ion-label>
-  <ion-input formControlName="desviacionInversionInicial" type="number"></ion-input>
-</ion-item>
-<div *ngIf="miFormulario.get('desviacionInversionInicial')?.invalid && (miFormulario.get('desviacionInversionInicial')?.dirty || miFormulario.get('desviacionInversionInicial')?.touched)">
-  <p class="error-message" *ngIf="miFormulario.get('desviacionInversionInicial')?.hasError('required')">La desviación de la inversión inicial es requerida.</p>
-  <p  class="error-message" *ngIf="miFormulario.get('desviacionInversionInicial')?.hasError('min')">La desviación debe ser un número positivo.</p>
-</div>
- <!-- Mensajes de error para la desviación -->
- <div *ngIf="miFormulario?.hasError('invalidDesviacion', 'desviacionInversionInicial') && miFormulario.get('desviacionInversionInicial')?.dirty">
-  <p class="error-message">La desviación no puede ser mayor que la inversión inicial.</p>
-</div>
 
+    <!-- Campo de Desviación Inversión Inicial -->
+    <ion-item>
+      <ion-label position="floating">Desviación Inversión Inicial</ion-label>
+      <ion-input formControlName="desviacionInversionInicial" type="number"></ion-input>
+    </ion-item>
+    <div *ngIf="miFormulario.get('desviacionInversionInicial')?.invalid && (miFormulario.get('desviacionInversionInicial')?.dirty || miFormulario.get('desviacionInversionInicial')?.touched)">
+      <p class="error-message" *ngIf="miFormulario.get('desviacionInversionInicial')?.hasError('required')">La desviación de la inversión inicial es requerida.</p>
+      <p class="error-message" *ngIf="miFormulario.get('desviacionInversionInicial')?.hasError('min')">La desviación debe ser un número positivo.</p>
+    </div>
+
+    <!-- Mensajes de error para la desviación -->
+    <div *ngIf="miFormulario?.hasError('invalidDesviacion', 'desviacionInversionInicial') && miFormulario.get('desviacionInversionInicial')?.dirty">
+      <p class="error-message">La desviación no puede ser mayor que la inversión inicial.</p>
+    </div>
+
+    <!-- Campo de Flujo Neto Inicial -->
     <ion-item>
       <ion-label position="floating">Flujo Neto Inicial</ion-label>
       <ion-input formControlName="flujoNetoInicial" type="number"></ion-input>
     </ion-item>
     <div *ngIf="miFormulario.get('flujoNetoInicial')?.invalid && (miFormulario.get('flujoNetoInicial')?.dirty || miFormulario.get('flujoNetoInicial')?.touched)">
       <p class="error-message" *ngIf="miFormulario.get('flujoNetoInicial')?.hasError('required')">El flujo neto inicial es requerido.</p>
-      <p  class="error-message" *ngIf="miFormulario.get('flujoNetoInicial')?.hasError('min')">Ingrese un número positivo.</p>
+      <p class="error-message" *ngIf="miFormulario.get('flujoNetoInicial')?.hasError('min')">Ingrese un número positivo.</p>
     </div>
-     <!-- Campo de entrada para desviación estándar del flujo neto -->
-     <ion-item>
+
+    <!-- Campo de Desviación Flujo Neto -->
+    <ion-item>
       <ion-label position="floating">Desviación Flujo Neto</ion-label>
       <ion-input formControlName="desviacionFlujoNeto" type="number"></ion-input>
     </ion-item>
     <div *ngIf="miFormulario.get('desviacionFlujoNeto')?.invalid && (miFormulario.get('desviacionFlujoNeto')?.dirty || miFormulario.get('desviacionFlujoNeto')?.touched)">
       <p class="error-message" *ngIf="miFormulario.get('desviacionFlujoNeto')?.hasError('required')">La desviación del flujo neto es requerida.</p>
-      <p class="error-message"  *ngIf="miFormulario.get('desviacionFlujoNeto')?.hasError('min')">La desviación debe ser un número positivo.</p>
+      <p class="error-message" *ngIf="miFormulario.get('desviacionFlujoNeto')?.hasError('min')">La desviación debe ser un número positivo.</p>
     </div>
-    
+
     <!-- Mensajes de error para la desviación -->
-    
     <div *ngIf="miFormulario?.hasError('invalidDesviacion', 'desviacionFlujoNeto') && miFormulario.get('desviacionFlujoNeto')?.dirty">
       <p class="error-message">La desviación no puede ser mayor que el flujo neto inicial.</p>
     </div>
 
+    <!-- Campo de Tasa TREMA -->
     <ion-item>
       <ion-label position="floating">Tasa TREMA</ion-label>
       <ion-input formControlName="tasaTREMA" type="number"></ion-input>
     </ion-item>
-    <div  *ngIf="miFormulario.get('tasaTREMA')?.invalid && (miFormulario.get('tasaTREMA')?.dirty || miFormulario.get('tasaTREMA')?.touched)">
-      <p class="error-message"  *ngIf="miFormulario.get('tasaTREMA')?.hasError('required')">La tasa TREMA es requerida.</p>
-      <p  class="error-message" *ngIf="miFormulario.get('tasaTREMA')?.hasError('min') || miFormulario.get('tasaTREMA')?.hasError('max')">Ingrese un valor entre 1 y 100.</p>
-    </div>
-    <div class="buttons-container">
-      <ion-button type="submit" [disabled]="!miFormulario.valid" >Enviar</ion-button>
-      <ion-button type="button" (click)="limpiarFormulario()" color="danger">Limpiar</ion-button>
-    </div>
-    <ion-button (click)="botonconceptos()" expand="block" class="custom-button">
-      <ion-icon slot="start" name="book-outline"></ion-icon>
-  Conceptos Básicos
-    </ion-button>
-  </form>
-  
-  <div *ngIf="mostrarTabla">
-  <table >
-    <thead>
-      <tr>
-        <th></th>
-        <th>Pesimista</th>
-        <th>Mas Probable</th>
-        <th>Optimista</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Inversión Inicial</td>
-        <td *ngIf="calculatedValues">{{ calculatedValues.inversionInicial.pesimista }}</td>
-        <td *ngIf="calculatedValues">{{ calculatedValues.inversionInicial.masProbable }}</td>
-        <td *ngIf="calculatedValues">{{ calculatedValues.inversionInicial.optimista }}</td>
-      </tr>
-      <tr>
-        <td>Flujo Neto</td>
-        <td *ngIf="calculatedValues">{{ calculatedValues.flujoNeto.pesimista }}</td>
-        <td *ngIf="calculatedValues">{{ calculatedValues.flujoNeto.masProbable }}</td>
-        <td *ngIf="calculatedValues">{{ calculatedValues.flujoNeto.optimista }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <ion-button (click)="botonsimulacion()" expand="block" class="custom-button">
-    <ion-icon slot="start" name="play-outline"></ion-icon>
-  Inicia tu simulación
-    </ion-button>
+    <div *ngIf="miFormulario.get('tasaTREMA')?.invalid && (miFormulario.get('tasaTREMA')?.dirty || miFormulario.get('tasaTREMA')?.touched)">
+      <p class="error-message" *ngIf="miFormulario.get('tasaTREMA')?.hasError('required')">La tasa TREMA es requerida.</p>
+      <p class="error-message" *ngIf="miFormulario.get('tasaTREMA')?.hasError('min') || miFormulario.get('tasaTREMA')?.hasError('max')">Ingrese un valor entre 1 y 100.</p>
     </div>
 
+    <!-- Contenedor de botones -->
+    <div class="buttons-container">
+      <ion-button type="submit" [disabled]="!miFormulario.valid">Enviar</ion-button>
+      <ion-button type="button" (click)="limpiarFormulario()" color="danger">Limpiar</ion-button>
+    </div>
+
+    <!-- Botón de Conceptos Básicos -->
+    <ion-button (click)="botonconceptos()" expand="block" class="custom-button">
+      <ion-icon slot="start" name="book-outline"></ion-icon>
+      Conceptos Básicos
+    </ion-button>
+  </form>
+
+  <!-- Tabla de Resultados -->
+  <div *ngIf="mostrarTabla">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Pesimista</th>
+          <th>Más Probable</th>
+          <th>Optimista</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Inversión Inicial</td>
+          <td *ngIf="calculatedValues">{{ calculatedValues.inversionInicial.pesimista }}</td>
+          <td *ngIf="calculatedValues">{{ calculatedValues.inversionInicial.masProbable }}</td>
+          <td *ngIf="calculatedValues">{{ calculatedValues.inversionInicial.optimista }}</td>
+        </tr>
+        <tr>
+          <td>Flujo Neto</td>
+          <td *ngIf="calculatedValues">{{ calculatedValues.flujoNeto.pesimista }}</td>
+          <td *ngIf="calculatedValues">{{ calculatedValues.flujoNeto.masProbable }}</td>
+          <td *ngIf="calculatedValues">{{ calculatedValues.flujoNeto.optimista }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Botón de Simulación -->
+    <ion-button (click)="botonsimulacion()" expand="block" class="custom-button">
+      <ion-icon slot="start" name="play-outline"></ion-icon>
+      Inicia tu simulación
+    </ion-button>
+  </div>
 </ion-content>

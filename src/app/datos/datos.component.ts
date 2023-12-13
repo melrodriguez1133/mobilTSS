@@ -5,7 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { ModalMensajeComponent } from '../modal-mensaje/modal-mensaje.component';
 import { Router } from '@angular/router';
 
-
+// Interfaz para definir la estructura de los valores calculados
 interface CalculatedValues {
   inversionInicial: {
     pesimista: number;
@@ -27,13 +27,15 @@ interface CalculatedValues {
 
 
 export class DatosComponent  {
-  
-
+  // Formulario Reactivo
   miFormulario: FormGroup;
 
+  // Estado para mostrar/ocultar la tabla de resultados
   mostrarTabla: boolean = false;
 
+  // Almacena los valores calculados
   constructor(private modalController: ModalController,private formBuilder: FormBuilder,private dataService: DataService,private router: Router ) {
+    // Inicialización del formulario con validadores
     this.miFormulario = this.formBuilder.group({
       inversionInicial: ['', [Validators.required, Validators.min(0)]],
       desviacionInversionInicial: ['', [Validators.required, Validators.min(0)]],
@@ -43,7 +45,7 @@ export class DatosComponent  {
     }, { validators: this.validarDesviacion });
   }
   
-
+  // Validador personalizado para la relación entre la inversión y su desviación
   validarDesviacion(formGroup: FormGroup | null) {
     if (!formGroup) {
       return;
@@ -72,20 +74,22 @@ export class DatosComponent  {
       }
     }
   }
+  // Limpiar el formulario y ocultar la tabla de resultados
   limpiarFormulario() {
     this.mostrarTabla = false;
     this.miFormulario.reset(); // Restablece los valores del formulario
   }
-
+  // Enviar el formulario y mostrar mensaje modal
   async enviarFormulario() {
     if (this.miFormulario.valid) {
       const datosFormulario = this.miFormulario.value;
       this.dataService.almacenarDatos(datosFormulario); // Almacena los datos
       console.log('Datos enviados:', datosFormulario);
- this. mostrarTablaClick();
+      // Mostrar la tabla de resultados
+      this. mostrarTablaClick();
       const datosAlmacenados = this.dataService.obtenerDatosAlmacenados(); // Obtiene los datos almacenados
       console.log('Datos almacenados en DataService:', datosAlmacenados);
-
+      // Mostrar mensaje modal
       const modal = await this.modalController.create({
         component: ModalMensajeComponent,
         componentProps: {
@@ -140,15 +144,16 @@ export class DatosComponent  {
       };
     }
 
-  
+  // Mostrar la tabla de resultados
   mostrarTablaClick() {
     this.calcularValores(); // Calcular valores
     this.mostrarTabla = true; // Cambiar el estado para mostrar la tabla
   }
-
+  // Navegar a la página de simulación
   botonsimulacion() {
     this.router.navigate(['/simulacion']);
   }
+  // Navegar a la página de conceptos básicos
   botonconceptos() {
     this.router.navigate(['/conceptos-basicos']);
   }

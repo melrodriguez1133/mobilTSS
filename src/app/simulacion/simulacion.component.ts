@@ -1,14 +1,14 @@
+// Importaciones de módulos y librerías necesarios
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { DataService } from '../data.service';
-//import * as html2pdf from 'html2pdf.js';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Content, Table, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatosComponent } from '../datos/datos.component';
-
-
 //import { Finance }from 'financejs';
+
+// Interfaces para especificar la estructura de datos
 interface DatosTabla {
   anos: number;
   inversionInicial: number;
@@ -34,6 +34,7 @@ interface CalculatedValues {
   styleUrls: ['./simulacion.component.scss']
 })
 export class SimulacionComponent implements OnInit {
+  // Declaración de variables
   inversionInicial: number = 0;
   desviacionInversionInicial: number = 0;
   flujoNetoInicial: number = 0;
@@ -49,12 +50,13 @@ export class SimulacionComponent implements OnInit {
   Trema:number=0;// Inicializa Trema en 0
   mostrarConclusion: boolean = false;
   miFormulario: FormGroup;
-  // Referencia a los elementos HTML que deseas incluir en el PDF
+  // Referencia a los elementos HTML para incluir en el PDF
   @ViewChild('pdfContent') pdfContent!: ElementRef<any>;
   @ViewChild('table1') table1!: ElementRef<any>;
   @ViewChild('table2') table2!: ElementRef<any>;
 
   constructor(private formBuilder: FormBuilder, private dataService: DataService) {
+    // Inicialización del formulario
     this.miFormulario = this.formBuilder.group({
       inversionInicial: ['', [Validators.required, Validators.min(0)]],
       desviacionInversionInicial: ['', [Validators.required, Validators.min(0)]],
@@ -63,11 +65,13 @@ export class SimulacionComponent implements OnInit {
       tasaTREMA: ['', [Validators.required, Validators.min(1), Validators.max(100)]]
     }, { validators: this.validarDesviacion });}
 
+    // Función de validación personalizada para el formulario
     validarDesviacion(formGroup: FormGroup | null) {
       if (!formGroup) {
         return;
       }
-    
+
+      // Lógica para validar desviaciones
       const inversionInicial = formGroup.get('inversionInicial');
       const desviacionInversionInicial = formGroup.get('desviacionInversionInicial');
       const flujoNetoInicial = formGroup.get('flujoNetoInicial');
@@ -79,6 +83,7 @@ export class SimulacionComponent implements OnInit {
         desviacionInversionInicial.value !== null && desviacionFlujoNeto.value !== null &&
         flujoNetoInicial.value !== null
       ) {
+        // Validar que las desviaciones no superen los valores iniciales
         if (
           desviacionInversionInicial.value > inversionInicial.value ||
           desviacionFlujoNeto.value > flujoNetoInicial.value
@@ -149,15 +154,16 @@ export class SimulacionComponent implements OnInit {
   return parseFloat(finance.IRR.apply(null, [0, ...flujos]).toFixed(2));
 }*/
   
-
+  // Método que se ejecuta al iniciar el componente
   ngOnInit(): void {
     this.obtenerDatos();
   }
-
+  // Método para obtener datos almacenados
   obtenerDatos() {
     const datosAlmacenados = this.dataService.obtenerDatosAlmacenados();
   
     if (datosAlmacenados) {
+      // Asignar valores si existen datos almacenados
       this.inversionInicial = datosAlmacenados.inversionInicial || 0;
       this.desviacionInversionInicial = datosAlmacenados.desviacionInversionInicial || 0;
       this.flujoNetoInicial = datosAlmacenados.flujoNetoInicial || 0;
@@ -177,7 +183,9 @@ export class SimulacionComponent implements OnInit {
     }
   }
   simularDatos(): void {
+    // Lógica para simular datos y realizar cálculos
     this.tablaData = [];
+    // Lógica para calcular datos y asignar a la tabla
     for (let i = 0; i < this.cantidadAnos; i++) {
       const data: DatosTabla = {
         anos: i + 1,
@@ -198,9 +206,10 @@ export class SimulacionComponent implements OnInit {
       this.mostrarConclusion = true;
     this.calcularValores();
 }
+// Método para calcular la inversión inicial
 calcularInversionInicial(): void {
   this.tablaData.forEach(item => {
-    
+    // Lógica para calcular inversión inicial de manera aleatoria
     const G18 = this.inversionInicial - this.desviacionInversionInicial ;
     const I18 = this.inversionInicial + this.desviacionInversionInicial ;
     const H18 = this.inversionInicial;
@@ -223,9 +232,10 @@ calcularInversionInicial(): void {
     item.inversionInicial = parseFloat(resultadoII.toFixed(2)); // Limitar a dos decimales
   });
 }
+// Método para calcular flujos netos
 calcularFlujosNetos(): void {
   this.tablaData.forEach(item => {
-
+    // Lógica para calcular flujos netos de manera aleatoria
     const G19 = this.flujoNetoInicial  - this.desviacionFlujoNeto;
     const I19 = this.flujoNetoInicial  + this.desviacionFlujoNeto;
     const H19 = this.flujoNetoInicial ;
@@ -248,6 +258,7 @@ calcularFlujosNetos(): void {
     item.flujosNetos = parseFloat(resultadoFlujosNetos.toFixed(2)); // Limitar a dos decimales
   });
 }
+// Método para calcular FET a partir de datos
 calcularFetFromData(): void {
   // Lógica para calcular 'fet' basado en los datos de 'flujosNetos' y 'tasaImpuestos'
   this.tablaData.forEach(item => {
@@ -267,6 +278,7 @@ calcularFetFromData(): void {
     item.fet = parseFloat(resultadoFet.toFixed(2)); // Limita a dos decimales y actualiza 'fet'
   });
 }
+// Método para calcular valor de rescate total
 calcularValorRescateTotal(): number {
   let sumaVRT = 0;
   this.tablaData.forEach(item => {
@@ -274,7 +286,7 @@ calcularValorRescateTotal(): number {
   });
   return Number(sumaVRT.toFixed(2)); // Devuelve el resultado redondeado a 2 decimales
 }
-
+// Método para calcular FET total
 calcularFETTotal(): number {
   let sumaFET = 0;
   this.tablaData.forEach(item => {
@@ -282,7 +294,7 @@ calcularFETTotal(): number {
   });
   return Number(sumaFET.toFixed(2)); // Devuelve el resultado redondeado a 2 decimales
 }
-
+// Método para calcular TIR
 calcularTir() {
   const tieneDatosFET = this.tablaData.some(item => item.fet !== 0);
 
@@ -310,13 +322,10 @@ calcularTir() {
   }
 }
 
-
+// Método para generar y descargar el informe en formato PDF
 exportToPDF() {
   // Configuración de las fuentes para pdfmake
-  (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
-
-
-    
+  (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;  
   // Verifica que el formulario esté inicializado y tenga valores
   if (this.miFormulario && this.miFormulario.value) {
     // Almacena los valores del formulario en variables

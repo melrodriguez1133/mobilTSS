@@ -1,40 +1,54 @@
+<!-- ion-header: Encabezado de la página -->
 <ion-header>
+  <!-- ion-toolbar: Barra de herramientas en el encabezado -->
   <ion-toolbar>
+    <!-- ion-title: Título de la página -->
     <ion-title>
       Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
+<!-- ion-content: Contenido principal de la página -->
 <ion-content class="ion-padding">
+  <!-- Título principal del propósito -->
   <h1 class="main-heading">Propósito</h1>
+  <!-- Párrafo explicativo del propósito -->
   <p class="paragraph">El propósito principal de esta aplicación es proporcionarte una herramienta de simulación de inversiones. Utilizando un escenario específico como ejemplo, la aplicación te permitirá evaluar la viabilidad financiera de un proyecto antes de tomar la decisión de invertir.</p>
 
+  <!-- Título principal del problema de simulación -->
   <h1 class="main-heading">Problema de Simulación</h1>
+  <!-- Párrafo explicativo del problema de simulación -->
   <p class="paragraph">Tomemos, por ejemplo, una empresa que está considerando ingresar a un nuevo negocio. Los detalles del proyecto, como la inversión inicial requerida y los ingresos netos anuales después de impuestos, se distribuyen de acuerdo con ciertos parámetros.</p>
 
+  <!-- Contenedor de subtítulo e información sobre inversión inicial -->
   <div class="sub-heading-container">
     <p class="sub-heading"><strong>Inversión Inicial:</strong></p>
     <p class="paragraph">La inversión inicial sigue una distribución normal con una media (μ) de 100,000 y una desviación estándar (σ) de 5,000.</p>
   </div>
 
+  <!-- Contenedor de subtítulo e información sobre flujo neto del período -->
   <div class="sub-heading-container">
     <p class="sub-heading"><strong>Flujo Neto del Período:</strong></p>
     <p class="paragraph">El flujo neto del período t sigue una distribución normal con una media (μ) de 30,000 y una desviación estándar (σ) de 3,000.</p>
   </div>
 
+  <!-- Contenedor de subtítulo e información sobre criterios de decisión -->
   <div class="sub-heading-container">
     <p class="sub-heading"><strong>Criterios de Decisión:</strong></p>
     <p class="paragraph">La empresa ha establecido que emprenderá el proyecto de inversión si la Tasa Interna de Retorno (TIR) es mayor que la Tasa de Retorno Mínima Aceptable (TREMA) con una probabilidad de al menos el 90%. En este caso, la TREMA se establece en un 30%.</p>
   </div>
 
+  <!-- Contenedor de subtítulo e información sobre horizonte de planeación -->
   <div class="sub-heading-container">
     <p class="sub-heading"><strong>Horizonte de Planeación:</strong></p>
     <p class="paragraph">La simulación se llevará a cabo para un horizonte de planeación de 5 años, y se asume un valor de rescate al final de este tiempo de cero.</p>
   </div>
 
+  <!-- Contenedor de subtítulo e información sobre cómo la aplicación puede ayudar -->
   <div class="sub-heading-container">
     <p class="sub-heading"><strong>¿Cómo Puede Ayudarte la Aplicación?</strong></p>
+    <!-- Lista de puntos con información sobre la ayuda proporcionada por la aplicación -->
     <ul>
       <li class="paragraph"><strong>Simulación Precisa: </strong>La aplicación realizará simulaciones detalladas del proyecto, teniendo en cuenta la variabilidad en la inversión inicial y los flujos netos anuales.</li>
       <li class="paragraph"><strong>Resultados Claros: </strong>Obtén resultados claros y comprensibles sobre la probabilidad de que el proyecto sea rentable, ayudándote a tomar decisiones informadas sobre tu inversión.</li>
@@ -43,5 +57,3 @@
     </ul>
   </div>
 </ion-content>
-
-

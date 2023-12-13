@@ -1,87 +1,115 @@
+<!-- ion-header: Encabezado de la página -->
 <ion-header>
+  <!-- ion-toolbar: Barra de herramientas en el encabezado -->
   <ion-toolbar>
+    <!-- ion-title: Título de la página -->
     <ion-title>
       Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
+<!-- ion-content: Contenido principal de la página -->
 <ion-content class="ion-padding">
 
+  <!-- Título principal de la sección -->
   <h1 class="header-title">Conceptos básicos</h1>
 
-  
-    <ion-card-header>
-      <h1 class="step-title"><strong>Inversión Inicial y Flujo Neto:</strong></h1>
-    </ion-card-header>
-    <ion-card-content>
-      <ul>
-        <li>La inversión inicial es la cantidad de dinero necesaria para iniciar el proyecto, y en este caso, se modela como una distribución normal con una media de $100,000 y una desviación estándar de $5,000.</li>
-        <li>El flujo neto del período t es la diferencia entre los ingresos y los costos en un año dado, modelado como una distribución normal con una media de $30,000 y una desviación estándar de $3,000.</li>
-      </ul>
-    </ion-card-content>
+  <!-- Sección 1: Inversión Inicial y Flujo Neto -->
+  <ion-card-header>
+    <!-- Título de la sección -->
+    <h1 class="step-title"><strong>Inversión Inicial y Flujo Neto:</strong></h1>
+  </ion-card-header>
+  <ion-card-content>
+    <!-- Lista con detalles de la sección -->
+    <ul>
+      <li>La inversión inicial es la cantidad de dinero necesaria para iniciar el proyecto, modelada como una distribución normal con una media de $100,000 y una desviación estándar de $5,000.</li>
+      <li>El flujo neto del período t es la diferencia entre los ingresos y los costos en un año dado, modelado como una distribución normal con una media de $30,000 y una desviación estándar de $3,000.</li>
+    </ul>
+  </ion-card-content>
 
-    <ion-card-header>
-      <h1 class="step-title"><strong>Tasa de Rendimiento Mínimo Aceptable (TREMA):</strong></h1>
-    </ion-card-header>
-    <ion-card-content>
-      <ul>
-        <li>Es la tasa de rendimiento mínima que la empresa considera aceptable para emprender el proyecto. En este caso, la TREMA es del 30%.</li>
-      </ul>
-    </ion-card-content>
+  <!-- Sección 2: Tasa de Rendimiento Mínimo Aceptable (TREMA) -->
+  <ion-card-header>
+    <!-- Título de la sección -->
+    <h1 class="step-title"><strong>Tasa de Rendimiento Mínimo Aceptable (TREMA):</strong></h1>
+  </ion-card-header>
+  <ion-card-content>
+    <!-- Lista con detalles de la sección -->
+    <ul>
+      <li>Es la tasa de rendimiento mínima que la empresa considera aceptable para emprender el proyecto. En este caso, la TREMA es del 30%.</li>
+    </ul>
+  </ion-card-content>
 
-    <ion-card-header>
-      <h1 class="step-title"><strong>Simulación de Inversiones y Flujos Netos:</strong></h1>
-    </ion-card-header>
-    <ion-card-content>
-      <ul>
-        <li>Se utilizan distribuciones triangulares para simular los valores pesimistas, más probables y optimistas de las inversiones iniciales y los flujos netos para cada uno de los 5 años del horizonte de planificación.</li>
-      </ul>
-    </ion-card-content>
+  <!-- Sección 3: Simulación de Inversiones y Flujos Netos -->
+  <ion-card-header>
+    <!-- Título de la sección -->
+    <h1 class="step-title"><strong>Simulación de Inversiones y Flujos Netos:</strong></h1>
+  </ion-card-header>
+  <ion-card-content>
+    <!-- Lista con detalles de la sección -->
+    <ul>
+      <li>Se utilizan distribuciones triangulares para simular los valores pesimistas, más probables y optimistas de las inversiones iniciales y los flujos netos para cada uno de los 5 años del horizonte de planificación.</li>
+    </ul>
+  </ion-card-content>
 
-    <ion-card-header>
-      <h1 class="step-title"><strong>Flujo de Efectivo Después de Impuestos:</strong></h1>
-    </ion-card-header>
-    <ion-card-content>
-      <ul>
-        <li>Se calcula determinando el impuesto sobre la renta y restando este impuesto del flujo neto. Se utiliza una tabla con la distribución triangular para estos cálculos.</li>
-      </ul>
-    </ion-card-content>
+  <!-- Sección 4: Flujo de Efectivo Después de Impuestos -->
+  <ion-card-header>
+    <!-- Título de la sección -->
+    <h1 class="step-title"><strong>Flujo de Efectivo Después de Impuestos:</strong></h1>
+  </ion-card-header>
+  <ion-card-content>
+    <!-- Lista con detalles de la sección -->
+    <ul>
+      <li>Se calcula determinando el impuesto sobre la renta y restando este impuesto del flujo neto. Se utiliza una tabla con la distribución triangular para estos cálculos.</li>
+    </ul>
+  </ion-card-content>
 
-    <ion-card-header>
-      <h1 class="step-title"><strong>Valor de Rescate (VR):</strong></h1>
-    </ion-card-header>
-    <ion-card-content>
-      <ul>
-        <li>Se determina el valor de rescate al final del horizonte de planificación. En este caso, se utiliza una fórmula que involucra el valor simulado de la inversión inicial (AF) y una tasa de impuesto (T).</li>
-      </ul>
-    </ion-card-content>
+  <!-- Sección 5: Valor de Rescate (VR) -->
+  <ion-card-header>
+    <!-- Título de la sección -->
+    <h1 class="step-title"><strong>Valor de Rescate (VR):</strong></h1>
+  </ion-card-header>
+  <ion-card-content>
+    <!-- Lista con detalles de la sección -->
+    <ul>
+      <li>Se determina el valor de rescate al final del horizonte de planificación. En este caso, se utiliza una fórmula que involucra el valor simulado de la inversión inicial (AF) y una tasa de impuesto (T).</li>
+    </ul>
+  </ion-card-content>
 
-    <ion-card-header>
-      <h1 class="step-title"><strong>Cálculo de la Tasa Interna de Rendimiento (TIR):</strong></h1>
-    </ion-card-header>
-    <ion-card-content>
-      <ul>
-        <li>Se calcula la TIR para los valores simulados. La TIR es la tasa de descuento que hace que el valor presente neto (VPN) de los flujos de efectivo sea igual a cero.</li>
-      </ul>
-    </ion-card-content>
+  <!-- Sección 6: Cálculo de la Tasa Interna de Rendimiento (TIR) -->
+  <ion-card-header>
+    <!-- Título de la sección -->
+    <h1 class="step-title"><strong>Cálculo de la Tasa Interna de Rendimiento (TIR):</strong></h1>
+  </ion-card-header>
+  <ion-card-content>
+    <!-- Lista con detalles de la sección -->
+    <ul>
+      <li>Se calcula la TIR para los valores simulados. La TIR es la tasa de descuento que hace que el valor presente neto (VPN) de los flujos de efectivo sea igual a cero.</li>
+    </ul>
+  </ion-card-content>
 
-    <ion-card-header>
-      <h1 class="step-title"><strong>Conclusión:</strong></h1>
-    </ion-card-header>
-    <ion-card-content>
-      <ul>
-        <li>Se concluye comparando la TIR calculada con la TREMA. Si la probabilidad de que la TIR sea menor que la TREMA es menor al 10%, se acepta el proyecto.</li>
-      </ul>
-    </ion-card-content>
-    <ion-button (click)="volversimulacion()" expand="block" class="custom-buttonSimu">
-      <ion-icon slot="start" name="play-outline"></ion-icon>
-  Inicia tu simulación
-    </ion-button>
-    
-    <ion-button (click)="volverAlMenu()" expand="block" class="custom-button">
-      <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
-      Volver al Menú
-    </ion-button>
+  <!-- Sección 7: Conclusión -->
+  <ion-card-header>
+    <!-- Título de la sección -->
+    <h1 class="step-title"><strong>Conclusión:</strong></h1>
+  </ion-card-header>
+  <ion-card-content>
+    <!-- Lista con detalles de la sección -->
+    <ul>
+      <li>Se concluye comparando la TIR calculada con la TREMA. Si la probabilidad de que la TIR sea menor que la TREMA es menor al 10%, se acepta el proyecto.</li>
+    </ul>
+  </ion-card-content>
+
+  <!-- Botón para iniciar la simulación -->
+  <ion-button (click)="volversimulacion()" expand="block" class="custom-buttonSimu">
+    <ion-icon slot="start" name="play-outline"></ion-icon>
+    Inicia tu simulación
+  </ion-button>
+
+  <!-- Botón para volver al menú principal -->
+  <ion-button (click)="volverAlMenu()" expand="block" class="custom-button">
+    <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+    Volver al Menú
+  </ion-button>
 
 </ion-content>

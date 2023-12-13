@@ -1,50 +1,83 @@
+<!--
+  Este código corresponde a una página de soporte técnico en Ionic. A continuación se proporciona documentación detallada
+  de cada sección del código.
+-->
+
 <ion-header>
   <ion-toolbar>
+    <!-- Título de la barra de navegación -->
     <ion-title class="ion-text-center">Soporte Técnico</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  <!-- Encabezado de la página -->
   <h1>Soporte Técnico</h1>
+  
+  <!-- Imagen de Soporte Técnico -->
   <img src="../../assets/icon/Soporte-Tecnico.png" alt="Soporte Técnico Imagen" class="imagen-soporte">
+  
+  <!-- Formulario de Soporte Técnico -->
   <ion-card>
     <ion-card-content>
+      <!-- Inicio del formulario -->
       <form [formGroup]="soporteForm" (ngSubmit)="enviarSoporte()">
+        
+        <!-- Campo de Nombre -->
         <ion-item>
-          <ion-label position="floating" [ngClass]="{'error': soporteForm.controls['nombre'].invalid && soporteForm.controls['nombre'].touched}">Nombre</ion-label>
+          <ion-label position="floating" [ngClass]="{'error': soporteForm.controls['nombre'].invalid && soporteForm.controls['nombre'].touched}">
+            Nombre
+          </ion-label>
           <ion-input formControlName="nombre" type="text"></ion-input>
+          <!-- Mensaje de error si el nombre es inválido y se ha tocado el campo -->
           <div *ngIf="soporteForm.controls['nombre'].invalid && soporteForm.controls['nombre'].touched" class="error-message">
             Por favor, introduce tu nombre.
           </div>
         </ion-item>
 
+        <!-- Campo de Correo Electrónico -->
         <ion-item>
-          <ion-label position="floating" [ngClass]="{'error': soporteForm.controls['correo'].invalid && soporteForm.controls['correo'].touched}">Correo Electrónico</ion-label>
+          <ion-label position="floating" [ngClass]="{'error': soporteForm.controls['correo'].invalid && soporteForm.controls['correo'].touched}">
+            Correo Electrónico
+          </ion-label>
           <ion-input formControlName="correo" type="email"></ion-input>
+          <!-- Mensaje de error si el correo es inválido y se ha tocado el campo -->
           <div *ngIf="soporteForm.controls['correo'].invalid && soporteForm.controls['correo'].touched" class="error-message">
             Por favor, introduce un correo electrónico válido.
           </div>
         </ion-item>
 
+        <!-- Campo de Teléfono -->
         <ion-item>
-          <ion-label position="floating" [ngClass]="{'error': soporteForm.controls['telefono'].invalid && soporteForm.controls['telefono'].touched}">Teléfono</ion-label>
+          <ion-label position="floating" [ngClass]="{'error': soporteForm.controls['telefono'].invalid && soporteForm.controls['telefono'].touched}">
+            Teléfono
+          </ion-label>
           <ion-input formControlName="telefono" type="number" (keypress)="soloNumeros($event)"></ion-input>
+          <!-- Mensaje de error si el teléfono es inválido y se ha tocado el campo -->
           <div *ngIf="soporteForm.controls['telefono'].invalid && soporteForm.controls['telefono'].touched" class="error-message">
             Por favor, introduce un número de teléfono válido.
           </div>
         </ion-item>                
 
+        <!-- Campo de Descripción del Problema -->
         <ion-item>
-          <ion-label position="floating" [ngClass]="{'error': soporteForm.controls['descripcionProblema'].invalid && soporteForm.controls['descripcionProblema'].touched}">Descripción del Problema</ion-label>
+          <ion-label position="floating" [ngClass]="{'error': soporteForm.controls['descripcionProblema'].invalid && soporteForm.controls['descripcionProblema'].touched}">
+            Descripción del Problema
+          </ion-label>
           <ion-textarea formControlName="descripcionProblema" rows="6"></ion-textarea>
+          <!-- Mensaje de error si la descripción es inválida y se ha tocado el campo -->
           <div *ngIf="soporteForm.controls['descripcionProblema'].invalid && soporteForm.controls['descripcionProblema'].touched" class="error-message">
             Por favor, describe el problema.
           </div>
         </ion-item>
 
+        <!-- Botón de Enviar -->
         <ion-button type="submit" [disabled]="!soporteForm.valid" expand="full" class="ion-margin-top">Enviar</ion-button>
 
       </form>
+      <!-- Fin del formulario -->
+
+      <!-- Botón de Volver al Menú -->
       <ion-button (click)="volverAlMenu()" expand="block" class="custom-button">
         <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
         Volver al Menú
